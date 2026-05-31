@@ -33,3 +33,13 @@ npm run dev
 | `npm run build` | Production build |
 | `npm run preview` | Preview build |
 | `npm run lint` | ESLint |
+
+## GitHub Pages
+
+Live site: **https://nickyphammy.github.io/IKAS/**
+
+Pushes to `main` automatically build and deploy via GitHub Actions.
+
+**One-time GitHub setup:** open your repo → **Settings → Pages** → set **Source** to **GitHub Actions**.
+
+Then push this project to `main` and check the **Actions** tab for the deploy workflow.
