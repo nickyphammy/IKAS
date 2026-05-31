@@ -1,3 +1,4 @@
+import { asset } from '../../lib/asset'
 import LocationFilter from './LocationFilter'
 import FeaturedViewpointCard, {
   SecondaryViewpointCard,
@@ -16,16 +17,16 @@ export default function NearbyGemsSection() {
 
           <div className="flex items-end gap-6 overflow-x-auto pb-2">
             <FeaturedViewpointCard
-              image="/assets/home/nearby-1.png"
+              image={asset('assets/home/nearby-1.png')}
               title="somewhere viewpoint"
               rating="4.3"
             />
             <SecondaryViewpointCard
-              image="/assets/home/nearby-2.png"
+              image={asset('assets/home/nearby-2.png')}
               alt="Sunset over green landscape"
             />
             <SecondaryViewpointCard
-              image="/assets/home/nearby-3.png"
+              image={asset('assets/home/nearby-3.png')}
               alt="Rocky cliff overlooking the ocean"
             />
           </div>

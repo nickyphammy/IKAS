@@ -1,5 +1,6 @@
 import LocationCard from './LocationCard'
 import ProgressIndicator from './ProgressIndicator'
+import { asset } from '../../lib/asset'
 
 export default function HeroGallery() {
   return (
@@ -14,13 +15,13 @@ export default function HeroGallery() {
       <div className="flex w-full items-center justify-between">
         <div className="flex gap-3">
           <img
-            src="/assets/landing/dot.png"
+            src={asset('assets/landing/dot.png')}
             alt=""
             className="size-[74px]"
             aria-hidden
           />
           <img
-            src="/assets/landing/dot.png"
+            src={asset('assets/landing/dot.png')}
             alt=""
             className="size-[74px]"
             aria-hidden

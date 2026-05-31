@@ -36,10 +36,17 @@ npm run dev
 
 ## GitHub Pages
 
-Live site: **https://nickyphammy.github.io/IKAS/**
+**Live site:** https://nickyphammy.github.io/IKAS/
+
+Use that exact URL (include `/IKAS/`). These will **not** work:
+
+- `https://nickyphammy.github.io/` (no project folder)
+- `https://github.com/nickyphammy/IKAS` (repo page, not the app)
 
 Pushes to `main` automatically build and deploy via GitHub Actions.
 
-**One-time GitHub setup:** open your repo → **Settings → Pages** → set **Source** to **GitHub Actions**.
+**GitHub settings (one-time):** repo → **Settings → Pages** → **Source: GitHub Actions**. Your screenshot already shows this correctly.
 
-Then push this project to `main` and check the **Actions** tab for the deploy workflow.
+After the first successful deploy, refresh the Pages settings tab — you should see the live URL and last deployment time. If it still says “Workflow details will appear here…”, check the **Actions** tab; the deploy may still be running.
+
+**Sub-pages:** `/home`, `/explore`, etc. work when navigating inside the app. Direct links and refresh are supported via a copied `404.html` (SPA fallback).

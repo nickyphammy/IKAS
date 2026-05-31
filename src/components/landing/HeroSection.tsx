@@ -1,4 +1,5 @@
 import Navbar from '../layout/Navbar'
+import { asset } from '../../lib/asset'
 import HeroContent from './HeroContent'
 import HeroGallery from './HeroGallery'
 
@@ -7,7 +8,7 @@ export default function HeroSection() {
     <section className="relative min-h-screen overflow-hidden bg-white">
       <div className="pointer-events-none absolute inset-0 top-[3px]">
         <img
-          src="/assets/landing/hero-bg.png"
+          src={asset('assets/landing/hero-bg.png')}
           alt=""
           className="size-full object-cover object-center"
         />

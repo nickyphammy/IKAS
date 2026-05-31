@@ -1,8 +1,10 @@
+import { asset } from '../../lib/asset'
+
 export default function ImageDropZone() {
   return (
     <div className="flex h-full min-h-[513px] flex-col items-center justify-center rounded-lg bg-white p-8">
       <img
-        src="/assets/add-viewpoint/drag-drop.png"
+        src={asset('assets/add-viewpoint/drag-drop.png')}
         alt=""
         className="mb-6 size-40 object-contain"
         aria-hidden

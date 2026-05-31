@@ -1,11 +1,12 @@
 import SignUpForm, { SignUpLogo } from '../components/signup/SignUpForm'
+import { asset } from '../lib/asset'
 
 export default function SignUpPage() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-white">
       <div className="pointer-events-none absolute inset-0">
         <img
-          src="/assets/signup/hero-bg.png"
+          src={asset('assets/signup/hero-bg.png')}
           alt=""
           className="size-full object-cover object-center"
         />

@@ -1,6 +1,7 @@
 import NearbyGemsSection from '../components/home/NearbyGemsSection'
 import RecommendedSection from '../components/home/RecommendedSection'
 import AppNavBar from '../components/layout/AppNavBar'
+import { asset } from '../lib/asset'
 
 export default function HomePage() {
   return (
@@ -8,7 +9,7 @@ export default function HomePage() {
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-white" />
         <img
-          src="/assets/home/hero-bg.png"
+          src={asset('assets/home/hero-bg.png')}
           alt=""
           className="absolute inset-0 size-full object-cover object-center"
         />

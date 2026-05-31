@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { asset } from '../../lib/asset'
 import Button from '../ui/Button'
 import TextField from '../ui/TextField'
 
@@ -11,14 +12,14 @@ export default function SignUpForm() {
       <TextField
         type="email"
         label="Email"
-        icon="/assets/signup/email-icon.png"
+        icon={asset('assets/signup/email-icon.png')}
         autoComplete="email"
       />
       <div>
         <TextField
           type="password"
           label="Password"
-          icon="/assets/signup/lock-icon.png"
+          icon={asset('assets/signup/lock-icon.png')}
           autoComplete="new-password"
         />
         <div className="mt-3 text-right">
@@ -43,7 +44,7 @@ export default function SignUpForm() {
         <p className="text-base text-black">or sign in with</p>
         <button type="button" className="overflow-hidden rounded-lg">
           <img
-            src="/assets/signup/google-signin.png"
+            src={asset('assets/signup/google-signin.png')}
             alt="Sign in with Google"
             className="h-[63px] w-[274px] object-cover"
           />
@@ -57,7 +58,7 @@ export function SignUpLogo() {
   return (
     <Link to="/" className="absolute left-[34px] top-8 flex items-center gap-3">
       <img
-        src="/assets/signup/logo.svg"
+        src={asset('assets/signup/logo.svg')}
         alt=""
         className="h-10 w-11 shrink-0"
       />

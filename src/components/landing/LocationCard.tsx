@@ -1,3 +1,5 @@
+import { asset } from '../../lib/asset'
+
 type LocationCardProps = {
   size?: 'large' | 'small'
 }
@@ -14,7 +16,7 @@ export default function LocationCard({ size = 'large' }: LocationCardProps) {
       </figcaption>
       <div className={`overflow-hidden ${isLarge ? 'h-[384px]' : 'h-[257px]'}`}>
         <img
-          src="/assets/landing/location.png"
+          src={asset('assets/landing/location.png')}
           alt="Scenic viewpoint at sunset"
           className="size-full object-cover"
         />

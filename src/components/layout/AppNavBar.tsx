@@ -1,4 +1,5 @@
 import { Link, NavLink } from 'react-router-dom'
+import { asset } from '../../lib/asset'
 
 const navItems = [
   { id: 'home', label: 'home', to: '/home' },
@@ -18,7 +19,7 @@ export default function AppNavBar() {
       <nav className="flex h-[75px] items-center gap-6 rounded-[64px] bg-[#fff7ef] px-6 sm:px-10 lg:gap-10 lg:px-11">
         <Link to="/home" className="shrink-0">
           <img
-            src="/assets/nav/logo.svg"
+            src={asset('assets/nav/logo.svg')}
             alt="ikas"
             className="h-10 w-11"
           />

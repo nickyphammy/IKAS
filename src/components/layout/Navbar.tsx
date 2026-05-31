@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { asset } from '../../lib/asset'
 import Button from '../ui/Button'
 
 export default function Navbar() {
@@ -7,7 +8,7 @@ export default function Navbar() {
       <nav className="flex h-[79px] items-center justify-between rounded-lg border border-black bg-[#fff7ef] px-6 sm:px-8">
         <Link to="/" className="flex items-center gap-3">
           <img
-            src="/assets/landing/logo.svg"
+            src={asset('assets/landing/logo.svg')}
             alt=""
             className="h-10 w-11 shrink-0"
           />

@@ -1,16 +1,17 @@
+import { asset } from '../../lib/asset'
 import RecommendedCard from './RecommendedCard'
 
 const recommendations = [
   {
-    image: '/assets/home/recommended-1.png',
+    image: asset('assets/home/recommended-1.png'),
     alt: 'Tropical beach with turquoise water',
   },
   {
-    image: '/assets/home/recommended-2.png',
+    image: asset('assets/home/recommended-2.png'),
     alt: 'Rocky coastline at sunset',
   },
   {
-    image: '/assets/home/recommended-3.png',
+    image: asset('assets/home/recommended-3.png'),
     alt: 'Sandy beach from elevated view',
   },
 ]

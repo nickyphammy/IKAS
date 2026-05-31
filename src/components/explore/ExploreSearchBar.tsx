@@ -1,3 +1,5 @@
+import { asset } from '../../lib/asset'
+
 export default function ExploreSearchBar() {
   return (
     <div className="relative w-full max-w-[831px]">
@@ -5,7 +7,7 @@ export default function ExploreSearchBar() {
         Search viewpoints
       </label>
       <img
-        src="/assets/explore/search-icon.png"
+        src={asset('assets/explore/search-icon.png')}
         alt=""
         className="pointer-events-none absolute left-8 top-1/2 size-8 -translate-y-1/2"
         aria-hidden
