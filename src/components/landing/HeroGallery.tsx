@@ -4,15 +4,15 @@ import { asset } from '../../lib/asset'
 
 export default function HeroGallery() {
   return (
-    <div className="relative flex flex-col items-end gap-6 lg:items-start">
-      <div className="flex items-end gap-8">
+    <div className="relative flex w-full max-w-[520px] flex-col items-center gap-6">
+      <div className="flex flex-col items-center gap-6 sm:flex-row sm:items-end sm:justify-center">
         <LocationCard size="large" />
-        <div className="mt-24">
+        <div className="sm:mt-24">
           <LocationCard size="small" />
         </div>
       </div>
 
-      <div className="flex w-full items-center justify-between">
+      <div className="flex w-full max-w-[420px] items-center justify-between">
         <div className="flex gap-3">
           <img
             src={asset('assets/landing/dot.png')}

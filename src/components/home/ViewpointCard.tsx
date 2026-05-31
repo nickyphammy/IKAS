@@ -23,7 +23,7 @@ export default function FeaturedViewpointCard({
   const { first, second } = splitTitle(title)
 
   return (
-    <article className="relative h-[385px] w-[332px] shrink-0 overflow-hidden rounded-[40px]">
+    <article className="relative mx-auto h-[385px] w-full max-w-[332px] shrink-0 overflow-hidden rounded-[40px] sm:w-[332px]">
       <Link to={VIEWPOINT_PATH} className="block size-full">
         <img src={image} alt={title} className="size-full object-cover" />
       </Link>
@@ -53,7 +53,7 @@ export function SecondaryViewpointCard({
   return (
     <Link
       to={VIEWPOINT_PATH}
-      className="block h-[324px] w-[232px] shrink-0 overflow-hidden rounded-[40px] shadow-md"
+      className="mx-auto block h-[324px] w-full max-w-[232px] shrink-0 overflow-hidden rounded-[40px] shadow-md sm:w-[232px]"
     >
       <img src={image} alt={alt} className="size-full object-cover" />
     </Link>

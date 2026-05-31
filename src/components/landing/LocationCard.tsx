@@ -8,7 +8,9 @@ export default function LocationCard({ size = 'large' }: LocationCardProps) {
   const isLarge = size === 'large'
 
   return (
-    <figure className={`flex flex-col ${isLarge ? 'w-[287px]' : 'w-[193px]'}`}>
+    <figure
+      className={`mx-auto flex w-full max-w-[287px] flex-col ${isLarge ? 'sm:max-w-[287px]' : 'sm:max-w-[193px]'}`}
+    >
       <figcaption
         className={`mb-2 text-black ${isLarge ? 'text-4xl' : 'text-2xl'}`}
       >

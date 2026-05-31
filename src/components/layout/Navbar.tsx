@@ -4,18 +4,18 @@ import Button from '../ui/Button'
 
 export default function Navbar() {
   return (
-    <header className="relative z-20 mx-auto w-full max-w-[1432px] px-2 pt-2.5">
-      <nav className="flex h-[79px] items-center justify-between rounded-lg border border-black bg-[#fff7ef] px-6 sm:px-8">
+    <header className="relative z-20 w-full pt-2.5">
+      <nav className="flex min-h-[79px] flex-wrap items-center justify-center gap-4 rounded-lg border border-black bg-[#fff7ef] px-4 py-3 sm:justify-between sm:px-8 sm:py-0">
         <Link to="/" className="flex items-center gap-3">
           <img
             src={asset('assets/landing/logo.svg')}
             alt=""
             className="h-10 w-11 shrink-0"
           />
-          <span className="text-2xl text-black">ikas</span>
+          <span className="text-xl text-black sm:text-2xl">ikas</span>
         </Link>
 
-        <div className="hidden items-center gap-10 text-2xl text-black md:flex">
+        <div className="hidden items-center gap-6 text-xl text-black md:flex lg:gap-10 lg:text-2xl">
           <Link to="/explore" className="hover:opacity-70">
             explore
           </Link>
@@ -32,7 +32,7 @@ export default function Navbar() {
           >
             sign up
           </Button>
-          <Link to="/signup" className="text-2xl text-black hover:opacity-70">
+          <Link to="/signup" className="text-xl text-black hover:opacity-70 sm:text-2xl">
             log in
           </Link>
         </div>

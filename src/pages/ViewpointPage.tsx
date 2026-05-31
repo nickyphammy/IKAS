@@ -1,4 +1,4 @@
-import AppNavBar from '../components/layout/AppNavBar'
+import AppPageShell from '../components/layout/AppPageShell'
 import ViewpointDetails from '../components/viewpoint/ViewpointDetails'
 import ViewpointGallery from '../components/viewpoint/ViewpointGallery'
 import { asset } from '../lib/asset'
@@ -21,40 +21,28 @@ const viewpoint = {
 
 export default function ViewpointPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-white" />
-        <img
-          src={asset('assets/viewpoint/hero-bg.png')}
-          alt=""
-          className="absolute inset-0 size-full object-cover object-center"
-        />
-      </div>
+    <AppPageShell
+      background={asset('assets/viewpoint/hero-bg.png')}
+      contentClassName="pb-10"
+    >
+      <ViewpointGallery
+        image={viewpoint.image}
+        alt={viewpoint.name}
+        bestTime={viewpoint.bestTime}
+        tags={viewpoint.tags}
+        distance={viewpoint.distance}
+        difficulty={viewpoint.difficulty}
+        estimatedVisit={viewpoint.estimatedVisit}
+      />
 
-      <div className="relative z-10 flex min-h-screen flex-col">
-        <AppNavBar />
-
-        <div className="mx-auto w-full max-w-[1436px] flex-1 px-4 pb-10 pt-6 lg:px-6">
-          <ViewpointGallery
-            image={viewpoint.image}
-            alt={viewpoint.name}
-            bestTime={viewpoint.bestTime}
-            tags={viewpoint.tags}
-            distance={viewpoint.distance}
-            difficulty={viewpoint.difficulty}
-            estimatedVisit={viewpoint.estimatedVisit}
-          />
-
-          <ViewpointDetails
-            name={viewpoint.name}
-            rating={viewpoint.rating}
-            address={viewpoint.address}
-            latitude={viewpoint.latitude}
-            longitude={viewpoint.longitude}
-            description={viewpoint.description}
-          />
-        </div>
-      </div>
-    </main>
+      <ViewpointDetails
+        name={viewpoint.name}
+        rating={viewpoint.rating}
+        address={viewpoint.address}
+        latitude={viewpoint.latitude}
+        longitude={viewpoint.longitude}
+        description={viewpoint.description}
+      />
+    </AppPageShell>
   )
 }

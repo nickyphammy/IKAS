@@ -11,7 +11,7 @@ export default function RecommendedCard({ image, alt }: RecommendedCardProps) {
   return (
     <Link
       to={VIEWPOINT_PATH}
-      className="block h-[244px] w-full shrink-0 overflow-hidden rounded-[40px] sm:w-[289px]"
+      className="mx-auto block h-[244px] w-full max-w-[289px] shrink-0 overflow-hidden rounded-[40px]"
     >
       <img src={image} alt={alt} className="size-full object-cover" />
     </Link>

@@ -19,7 +19,7 @@ export default function SavedViewpointCard({
   distance,
 }: SavedViewpoint) {
   return (
-    <article className="flex w-full max-w-[312px] shrink-0 flex-col overflow-hidden rounded-[40px] bg-white">
+    <article className="mx-auto flex w-full max-w-[312px] shrink-0 flex-col overflow-hidden rounded-[40px] bg-white">
       <Link to={VIEWPOINT_PATH} className="block h-[263px] w-full overflow-hidden">
         <img src={image} alt={title} className="size-full object-cover" />
       </Link>

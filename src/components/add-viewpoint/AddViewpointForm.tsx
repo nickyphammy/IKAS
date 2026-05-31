@@ -6,7 +6,7 @@ import StarRating from './StarRating'
 
 export default function AddViewpointForm() {
   return (
-    <div className="relative w-full max-w-[1166px] rounded-lg bg-[#fff7ef] px-6 py-10 sm:px-10 lg:px-14 lg:py-12">
+    <div className="relative mx-auto w-full max-w-[1166px] rounded-lg bg-[#fff7ef] px-6 py-10 sm:px-10 lg:px-14 lg:py-12">
       <Link
         to="/home"
         className="absolute left-6 top-8 text-2xl font-bold text-[#9f9f9f] hover:text-black lg:left-10"

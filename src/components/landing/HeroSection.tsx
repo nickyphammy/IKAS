@@ -1,3 +1,4 @@
+import PageContent from '../layout/PageContent'
 import Navbar from '../layout/Navbar'
 import { asset } from '../../lib/asset'
 import HeroContent from './HeroContent'
@@ -15,12 +16,14 @@ export default function HeroSection() {
       </div>
 
       <div className="relative z-10 flex min-h-screen flex-col">
-        <Navbar />
+        <PageContent>
+          <Navbar />
+        </PageContent>
 
-        <div className="mx-auto flex w-full max-w-[1436px] flex-1 flex-col items-center gap-16 px-6 pb-16 pt-16 lg:flex-row lg:items-center lg:justify-between lg:gap-8 lg:px-12 lg:pt-24">
+        <PageContent className="flex flex-1 flex-col items-center justify-center gap-12 pb-16 pt-12 sm:gap-16 lg:flex-row lg:items-center lg:gap-8 lg:pt-24">
           <HeroContent />
           <HeroGallery />
-        </div>
+        </PageContent>
       </div>
     </section>
   )

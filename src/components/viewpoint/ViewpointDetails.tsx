@@ -19,27 +19,29 @@ export default function ViewpointDetails({
   description,
 }: ViewpointDetailsProps) {
   return (
-    <section className="relative px-1 pb-16 pt-8">
-      <div className="mb-6 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+    <section className="relative mx-auto w-full max-w-[1008px] px-1 pb-16 pt-8 text-center">
+      <div className="mb-6 flex flex-col items-center gap-6 sm:flex-row sm:justify-center">
         <ViewpointStarRating rating={rating} />
         <Button
           variant="cta"
-          className="h-16 shrink-0 rounded-2xl px-8 text-xl sm:self-start"
+          className="h-16 shrink-0 rounded-2xl px-8 text-xl"
         >
           report post
         </Button>
       </div>
 
-      <h1 className="mb-4 max-w-[750px] text-5xl font-bold text-black">{name}</h1>
+      <h1 className="mx-auto mb-4 max-w-[750px] text-3xl font-bold text-black sm:text-5xl">
+        {name}
+      </h1>
 
       <div className="mb-6 text-black">
-        <p className="text-2xl">@ {address}</p>
-        <p className="text-xl">
+        <p className="text-xl sm:text-2xl">@ {address}</p>
+        <p className="text-lg sm:text-xl">
           lat : {latitude} lng: {longitude}
         </p>
       </div>
 
-      <p className="max-w-[1008px] text-base leading-normal text-black">
+      <p className="mx-auto max-w-[1008px] text-base leading-normal text-black">
         {description}
       </p>
     </section>

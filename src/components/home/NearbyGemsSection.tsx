@@ -6,16 +6,16 @@ import FeaturedViewpointCard, {
 
 export default function NearbyGemsSection() {
   return (
-    <section className="px-6 pb-16 lg:px-8">
-      <div className="mx-auto max-w-[1335px] rounded border border-black p-6 lg:p-10">
-        <h2 className="mb-8 text-[32px] font-bold text-black lg:mb-12">
+    <section className="w-full pb-16">
+      <div className="mx-auto w-full max-w-[1335px] rounded border border-black p-6 lg:p-10">
+        <h2 className="mb-8 text-center text-[28px] font-bold text-black sm:text-[32px] lg:mb-12">
           Nearby Gems
         </h2>
 
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-16">
+        <div className="flex flex-col items-center gap-10 lg:flex-row lg:items-start lg:justify-center lg:gap-16">
           <LocationFilter />
 
-          <div className="flex items-end gap-6 overflow-x-auto pb-2">
+          <div className="flex flex-wrap items-end justify-center gap-6">
             <FeaturedViewpointCard
               image={asset('assets/home/nearby-1.png')}
               title="somewhere viewpoint"

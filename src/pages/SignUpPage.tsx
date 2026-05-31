@@ -1,4 +1,5 @@
 import SignUpForm, { SignUpLogo } from '../components/signup/SignUpForm'
+import PageContent from '../components/layout/PageContent'
 import { asset } from '../lib/asset'
 
 export default function SignUpPage() {
@@ -12,12 +13,18 @@ export default function SignUpPage() {
         />
       </div>
 
-      <SignUpLogo />
+      <div className="relative z-10 flex min-h-screen flex-col">
+        <PageContent className="flex justify-center pt-8">
+          <SignUpLogo />
+        </PageContent>
 
-      <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-24">
-        <div className="flex w-full max-w-[765px] flex-col items-center rounded-[40px] bg-white/70 px-8 py-16 sm:px-12 sm:py-20">
-          <h1 className="mb-12 text-[40px] font-bold text-black">Sign Up</h1>
-          <SignUpForm />
+        <div className="flex flex-1 items-center justify-center px-4 py-16 sm:py-24">
+          <div className="flex w-full max-w-[765px] flex-col items-center rounded-[40px] bg-white/70 px-6 py-12 sm:px-12 sm:py-20">
+            <h1 className="mb-12 text-center text-[32px] font-bold text-black sm:text-[40px]">
+              Sign Up
+            </h1>
+            <SignUpForm />
+          </div>
         </div>
       </div>
     </main>

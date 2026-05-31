@@ -2,7 +2,7 @@ import { asset } from '../../lib/asset'
 
 export default function SavedSearchBar() {
   return (
-    <div className="relative w-full max-w-[469px]">
+    <div className="relative mx-auto w-full max-w-[469px]">
       <label htmlFor="saved-search" className="sr-only">
         Search saved viewpoints
       </label>
