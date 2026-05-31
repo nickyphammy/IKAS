@@ -32,8 +32,8 @@ export default function SignUpForm() {
       </div>
 
       <Button
+        to="/home"
         variant="cta"
-        type="submit"
         className="mx-auto h-[59px] w-full max-w-[348px] text-base"
       >
         get started
