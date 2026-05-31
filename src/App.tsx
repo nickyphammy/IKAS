@@ -4,6 +4,7 @@ import ExplorePage from './pages/ExplorePage'
 import HomePage from './pages/HomePage'
 import LandingPage from './pages/LandingPage'
 import SignUpPage from './pages/SignUpPage'
+import SavedPage from './pages/SavedPage'
 import ViewpointPage from './pages/ViewpointPage'
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/home" element={<HomePage />} />
       <Route path="/explore" element={<ExplorePage />} />
+      <Route path="/saved" element={<SavedPage />} />
       <Route path="/add-viewpoint" element={<AddViewpointPage />} />
       <Route path="/viewpoint" element={<ViewpointPage />} />
     </Routes>
