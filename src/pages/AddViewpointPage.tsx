@@ -1,14 +1,26 @@
 import AddViewpointForm from '../components/add-viewpoint/AddViewpointForm'
-import AppPageShell from '../components/layout/AppPageShell'
+import AppNavBar from '../components/layout/AppNavBar'
 import { asset } from '../lib/asset'
 
 export default function AddViewpointPage() {
   return (
-    <AppPageShell
-      background={asset('assets/add-viewpoint/hero-bg.png')}
-      contentClassName="justify-center pb-10"
-    >
-      <AddViewpointForm />
-    </AppPageShell>
+    <main className="relative min-h-screen overflow-x-clip">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 bg-white" />
+        <img
+          src={asset('assets/add-viewpoint/hero-bg.png')}
+          alt=""
+          className="absolute inset-0 size-full object-cover object-center"
+        />
+      </div>
+
+      <div className="relative z-10 flex min-h-screen flex-col">
+        <AppNavBar />
+
+        <div className="flex flex-1 items-center justify-center px-4 py-10">
+          <AddViewpointForm />
+        </div>
+      </div>
+    </main>
   )
 }

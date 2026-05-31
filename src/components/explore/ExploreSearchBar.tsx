@@ -2,7 +2,7 @@ import { asset } from '../../lib/asset'
 
 export default function ExploreSearchBar() {
   return (
-    <div className="relative mx-auto w-full max-w-[831px]">
+    <div className="relative w-full min-w-0 max-w-[831px]">
       <label htmlFor="explore-search" className="sr-only">
         Search viewpoints
       </label>
@@ -16,7 +16,7 @@ export default function ExploreSearchBar() {
         id="explore-search"
         type="search"
         placeholder="search"
-        className="h-[59px] w-full rounded-[32px] border border-black bg-white/65 pl-16 pr-6 text-2xl text-black placeholder:text-black focus:outline-none focus:ring-2 focus:ring-[#ff9e43]"
+        className="h-[59px] w-full rounded-[32px] border border-black bg-white/65 pl-16 pr-6 text-xl text-black placeholder:text-black focus:outline-none focus:ring-2 focus:ring-[#ff9e43] sm:text-2xl"
       />
     </div>
   )

@@ -2,7 +2,7 @@ import { asset } from '../../lib/asset'
 
 export default function SavedSearchBar() {
   return (
-    <div className="relative mx-auto w-full max-w-[469px]">
+    <div className="relative w-full min-w-0 max-w-[469px]">
       <label htmlFor="saved-search" className="sr-only">
         Search saved viewpoints
       </label>
@@ -16,7 +16,7 @@ export default function SavedSearchBar() {
         id="saved-search"
         type="search"
         placeholder="search"
-        className="h-[59px] w-full rounded-[32px] border border-black bg-white/65 pl-14 pr-6 text-2xl text-black placeholder:text-black focus:outline-none focus:ring-2 focus:ring-[#ff9e43]"
+        className="h-[59px] w-full rounded-[32px] border border-black bg-white/65 pl-14 pr-6 text-xl text-black placeholder:text-black focus:outline-none focus:ring-2 focus:ring-[#ff9e43] sm:text-2xl"
       />
     </div>
   )

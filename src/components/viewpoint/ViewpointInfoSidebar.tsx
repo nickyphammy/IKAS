@@ -16,7 +16,7 @@ export default function ViewpointInfoSidebar({
   estimatedVisit,
 }: ViewpointInfoSidebarProps) {
   return (
-    <aside className="mx-auto flex w-full max-w-[357px] flex-col gap-4 lg:mx-0 lg:shrink-0">
+    <aside className="flex w-full min-w-0 flex-col gap-4 lg:w-[357px] lg:shrink-0">
       <div className="flex flex-col gap-8 rounded-lg bg-[#d9d9d9] p-6">
         <ViewpointInfoRow icon="clock">
           <p>Best time: {bestTime}</p>

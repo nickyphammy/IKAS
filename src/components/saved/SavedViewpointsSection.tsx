@@ -29,15 +29,15 @@ const savedViewpoints = [
 export default function SavedViewpointsSection() {
   return (
     <section className="w-full pb-16">
-      <h1 className="mb-8 text-center text-[36px] font-bold text-black sm:text-[52px] lg:mb-10">
+      <h1 className="mb-8 text-[36px] font-bold text-black sm:text-[52px] lg:mb-10">
         Saved viewpoints
       </h1>
 
-      <div className="mb-10 flex justify-center lg:mb-12">
+      <div className="mb-10 lg:mb-12">
         <SavedSearchBar />
       </div>
 
-      <div className="flex flex-wrap justify-center gap-8 lg:gap-12 xl:gap-16">
+      <div className="flex flex-wrap items-stretch gap-8 lg:gap-12 xl:gap-16">
         {savedViewpoints.map((viewpoint) => (
           <SavedViewpointCard key={viewpoint.title} {...viewpoint} />
         ))}

@@ -20,8 +20,8 @@ export default function ViewpointGallery({
   estimatedVisit,
 }: ViewpointGalleryProps) {
   return (
-    <section className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-4 lg:flex-row lg:items-start lg:justify-center lg:gap-6">
-      <div className="h-[320px] w-full max-w-[900px] overflow-hidden rounded-lg sm:h-[440px] lg:h-[556px] lg:flex-1">
+    <section className="flex min-w-0 flex-col gap-4 lg:flex-row lg:gap-6">
+      <div className="h-[280px] w-full min-w-0 overflow-hidden rounded-lg sm:h-[400px] lg:h-[556px] lg:flex-1">
         <img src={image} alt={alt} className="size-full object-cover" />
       </div>
       <ViewpointInfoSidebar
