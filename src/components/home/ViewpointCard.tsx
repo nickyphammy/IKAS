@@ -1,5 +1,8 @@
+import { Link } from 'react-router-dom'
 import ArrowButton from '../ui/ArrowButton'
 import RatingBadge from './RatingBadge'
+
+const VIEWPOINT_PATH = '/viewpoint'
 
 type FeaturedViewpointCardProps = {
   image: string
@@ -21,16 +24,18 @@ export default function FeaturedViewpointCard({
 
   return (
     <article className="relative h-[385px] w-[332px] shrink-0 overflow-hidden rounded-[40px]">
-      <img src={image} alt={title} className="size-full object-cover" />
-      <div className="absolute left-7 top-7">
+      <Link to={VIEWPOINT_PATH} className="block size-full">
+        <img src={image} alt={title} className="size-full object-cover" />
+      </Link>
+      <div className="pointer-events-none absolute left-7 top-7">
         <RatingBadge rating={rating} />
       </div>
       <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/50 to-transparent px-7 pb-6 pt-16">
-        <p className="text-2xl leading-tight text-white">
+        <Link to={VIEWPOINT_PATH} className="text-2xl leading-tight text-white hover:opacity-90">
           <span className="block">{first}</span>
           {second ? <span className="block">{second}</span> : null}
-        </p>
-        <ArrowButton label={`View ${title}`} />
+        </Link>
+        <ArrowButton label={`View ${title}`} to={VIEWPOINT_PATH} />
       </div>
     </article>
   )
@@ -46,8 +51,13 @@ export function SecondaryViewpointCard({
   alt,
 }: SecondaryViewpointCardProps) {
   return (
-    <article className="h-[324px] w-[232px] shrink-0 overflow-hidden rounded-[40px] shadow-md">
+    <Link
+      to={VIEWPOINT_PATH}
+      className="block h-[324px] w-[232px] shrink-0 overflow-hidden rounded-[40px] shadow-md"
+    >
       <img src={image} alt={alt} className="size-full object-cover" />
-    </article>
+    </Link>
   )
 }
+
+export { VIEWPOINT_PATH }
