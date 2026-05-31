@@ -11,7 +11,11 @@ export default function HeroContent() {
         explorers near you.
       </p>
       <div className="mt-12">
-        <Button variant="cta" className="h-[59px] min-w-[240px] text-xl">
+        <Button
+          to="/signup"
+          variant="cta"
+          className="h-[59px] min-w-[240px] text-xl"
+        >
           get started
         </Button>
       </div>

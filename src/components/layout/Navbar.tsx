@@ -24,15 +24,16 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-4 sm:gap-6">
-          <Button variant="accent" className="hidden px-5 py-2 text-2xl sm:inline-flex">
+          <Button
+            to="/signup"
+            variant="accent"
+            className="hidden px-5 py-2 text-2xl sm:inline-flex"
+          >
             sign up
           </Button>
-          <button
-            type="button"
-            className="text-2xl text-black hover:opacity-70"
-          >
+          <Link to="/signup" className="text-2xl text-black hover:opacity-70">
             log in
-          </button>
+          </Link>
         </div>
       </nav>
     </header>
