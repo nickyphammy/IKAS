@@ -1,14 +1,13 @@
-import NearbyGemsSection from '../components/home/NearbyGemsSection'
-import RecommendedSection from '../components/home/RecommendedSection'
+import AddViewpointForm from '../components/add-viewpoint/AddViewpointForm'
 import AppNavBar from '../components/layout/AppNavBar'
 
-export default function HomePage() {
+export default function AddViewpointPage() {
   return (
     <main className="relative min-h-screen overflow-hidden">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-white" />
         <img
-          src="/assets/home/hero-bg.png"
+          src="/assets/add-viewpoint/hero-bg.png"
           alt=""
           className="absolute inset-0 size-full object-cover object-center"
         />
@@ -17,9 +16,8 @@ export default function HomePage() {
       <div className="relative z-10 flex min-h-screen flex-col">
         <AppNavBar />
 
-        <div className="flex-1 pt-8 lg:pt-12">
-          <RecommendedSection />
-          <NearbyGemsSection />
+        <div className="flex flex-1 items-center justify-center px-4 py-10">
+          <AddViewpointForm />
         </div>
       </div>
     </main>
