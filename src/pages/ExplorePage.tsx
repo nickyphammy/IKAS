@@ -12,8 +12,8 @@ export default function ExplorePage() {
         <AppNavBar />
       </div>
 
-      <PageContainer className="pointer-events-none absolute inset-x-0 top-[120px] z-30 sm:top-[134px]">
-        <div className="pointer-events-auto w-full max-w-[831px]">
+      <PageContainer className="pointer-events-none absolute inset-x-0 top-[88px] z-30 flex justify-center sm:top-[96px]">
+        <div className="pointer-events-auto w-full max-w-[831px] px-4">
           <ExploreSearchBar />
         </div>
       </PageContainer>

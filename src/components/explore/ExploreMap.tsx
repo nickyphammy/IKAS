@@ -1,4 +1,5 @@
 import { asset } from '../../lib/asset'
+import ExploreRadiusTool from './ExploreRadiusTool'
 
 export default function ExploreMap() {
   return (
@@ -8,6 +9,7 @@ export default function ExploreMap() {
         alt="Map of viewpoints"
         className="size-full object-cover object-center"
       />
+      <ExploreRadiusTool />
     </div>
   )
 }
