@@ -4,7 +4,7 @@ import RatingBadge from './RatingBadge'
 
 const VIEWPOINT_PATH = '/viewpoint'
 
-type FeaturedViewpointCardProps = {
+export type ViewpointCardProps = {
   image: string
   title: string
   rating: string
@@ -15,11 +15,11 @@ function splitTitle(title: string) {
   return { first, second: rest.join(' ') }
 }
 
-export default function FeaturedViewpointCard({
+export default function ViewpointCard({
   image,
   title,
   rating,
-}: FeaturedViewpointCardProps) {
+}: ViewpointCardProps) {
   const { first, second } = splitTitle(title)
 
   return (
@@ -31,32 +31,16 @@ export default function FeaturedViewpointCard({
         <RatingBadge rating={rating} />
       </div>
       <div className="absolute inset-x-0 bottom-0 flex items-end justify-between bg-gradient-to-t from-black/50 to-transparent px-7 pb-6 pt-16">
-        <Link to={VIEWPOINT_PATH} className="text-2xl leading-tight text-white hover:opacity-90">
+        <Link
+          to={VIEWPOINT_PATH}
+          className="text-2xl leading-tight text-white hover:opacity-90"
+        >
           <span className="block">{first}</span>
           {second ? <span className="block">{second}</span> : null}
         </Link>
         <ArrowButton label={`View ${title}`} to={VIEWPOINT_PATH} />
       </div>
     </article>
-  )
-}
-
-type SecondaryViewpointCardProps = {
-  image: string
-  alt: string
-}
-
-export function SecondaryViewpointCard({
-  image,
-  alt,
-}: SecondaryViewpointCardProps) {
-  return (
-    <Link
-      to={VIEWPOINT_PATH}
-      className="block h-[280px] w-[200px] shrink-0 overflow-hidden rounded-[40px] shadow-md sm:h-[324px] sm:w-[232px]"
-    >
-      <img src={image} alt={alt} className="size-full object-cover" />
-    </Link>
   )
 }
 

@@ -13,3 +13,20 @@ body {
 html {
   overflow-x: clip;
 }
+
+/* Sampled from hero-bg.png (570×855) */
+.ika-page-gradient {
+  background: linear-gradient(
+    180deg,
+    #c4ced6 0%,
+    #cfd5da 8%,
+    #dddedb 18%,
+    #efe2d4 32%,
+    #f8dabb 45%,
+    #feb57e 58%,
+    #f0a878 68%,
+    #bc9fa0 80%,
+    #cbb8b1 92%,
+    #c8afa0 100%
+  );
+}

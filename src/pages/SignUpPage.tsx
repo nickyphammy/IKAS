@@ -1,17 +1,11 @@
 import SignUpForm, { SignUpLogo } from '../components/signup/SignUpForm'
+import PageBackground from '../components/layout/PageBackground'
 import PageContainer from '../components/layout/PageContainer'
-import { asset } from '../lib/asset'
 
 export default function SignUpPage() {
   return (
-    <main className="relative min-h-screen overflow-x-clip bg-white">
-      <div className="pointer-events-none absolute inset-0">
-        <img
-          src={asset('assets/signup/hero-bg.png')}
-          alt=""
-          className="size-full object-cover object-center"
-        />
-      </div>
+    <main className="relative min-h-screen overflow-x-clip">
+      <PageBackground />
 
       <div className="relative z-10 flex min-h-screen flex-col">
         <PageContainer className="pt-8">

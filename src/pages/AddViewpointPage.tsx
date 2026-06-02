@@ -1,18 +1,11 @@
 import AddViewpointForm from '../components/add-viewpoint/AddViewpointForm'
 import AppNavBar from '../components/layout/AppNavBar'
-import { asset } from '../lib/asset'
+import PageBackground from '../components/layout/PageBackground'
 
 export default function AddViewpointPage() {
   return (
     <main className="relative min-h-screen overflow-x-clip">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-white" />
-        <img
-          src={asset('assets/add-viewpoint/hero-bg.png')}
-          alt=""
-          className="absolute inset-0 size-full object-cover object-center"
-        />
-      </div>
+      <PageBackground />
 
       <div className="relative z-10 flex min-h-screen flex-col">
         <AppNavBar />

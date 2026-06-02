@@ -56,7 +56,7 @@ export default function SignUpForm() {
 
 export function SignUpLogo() {
   return (
-    <Link to="/" className="inline-flex items-center gap-3">
+    <Link to="/" className="absolute left-[34px] top-8 flex items-center gap-3">
       <img
         src={asset('assets/signup/logo.svg')}
         alt=""

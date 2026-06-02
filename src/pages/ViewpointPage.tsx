@@ -1,4 +1,5 @@
 import AppNavBar from '../components/layout/AppNavBar'
+import PageBackground from '../components/layout/PageBackground'
 import PageContainer from '../components/layout/PageContainer'
 import ViewpointDetails from '../components/viewpoint/ViewpointDetails'
 import ViewpointGallery from '../components/viewpoint/ViewpointGallery'
@@ -23,14 +24,7 @@ const viewpoint = {
 export default function ViewpointPage() {
   return (
     <main className="relative min-h-screen overflow-x-clip">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-white" />
-        <img
-          src={asset('assets/viewpoint/hero-bg.png')}
-          alt=""
-          className="absolute inset-0 size-full object-cover object-center"
-        />
-      </div>
+      <PageBackground />
 
       <div className="relative z-10 flex min-h-screen flex-col">
         <AppNavBar />

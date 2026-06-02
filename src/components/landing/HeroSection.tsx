@@ -1,19 +1,13 @@
 import Navbar from '../layout/Navbar'
+import PageBackground from '../layout/PageBackground'
 import PageContainer from '../layout/PageContainer'
-import { asset } from '../../lib/asset'
 import HeroContent from './HeroContent'
 import HeroGallery from './HeroGallery'
 
 export default function HeroSection() {
   return (
-    <section className="relative min-h-screen overflow-x-clip bg-white">
-      <div className="pointer-events-none absolute inset-0 top-[3px]">
-        <img
-          src={asset('assets/landing/hero-bg.png')}
-          alt=""
-          className="size-full object-cover object-center"
-        />
-      </div>
+    <section className="relative min-h-screen overflow-x-clip">
+      <PageBackground />
 
       <div className="relative z-10 flex min-h-screen flex-col">
         <PageContainer>

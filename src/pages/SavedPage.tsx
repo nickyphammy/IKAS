@@ -1,19 +1,12 @@
 import AppNavBar from '../components/layout/AppNavBar'
+import PageBackground from '../components/layout/PageBackground'
 import PageContainer from '../components/layout/PageContainer'
 import SavedViewpointsSection from '../components/saved/SavedViewpointsSection'
-import { asset } from '../lib/asset'
 
 export default function SavedPage() {
   return (
     <main className="relative min-h-screen overflow-x-clip">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-white" />
-        <img
-          src={asset('assets/saved/hero-bg.png')}
-          alt=""
-          className="absolute inset-0 size-full object-cover object-center"
-        />
-      </div>
+      <PageBackground />
 
       <div className="relative z-10 flex min-h-screen flex-col">
         <AppNavBar />

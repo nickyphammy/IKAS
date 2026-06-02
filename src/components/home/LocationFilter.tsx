@@ -11,7 +11,12 @@ export default function LocationFilter() {
           className="size-6 shrink-0"
           aria-hidden
         />
-        <span className="text-base text-black">orange country</span>
+        <input
+          type="text"
+          placeholder="search location"
+          className="min-w-0 flex-1 bg-transparent text-base font-normal text-black placeholder:text-black focus:outline-none"
+          aria-label="Search location"
+        />
       </div>
     </div>
   )
