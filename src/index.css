@@ -6,6 +6,98 @@
   --color-accent-orange: #ff9e43;
 }
 
+.motion-pop {
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease,
+    opacity 180ms ease;
+}
+
+.motion-pop:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 12px 28px rgb(0 0 0 / 0.12);
+}
+
+.motion-press {
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease,
+    opacity 160ms ease;
+}
+
+.motion-press:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgb(0 0 0 / 0.12);
+}
+
+.motion-press:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
+}
+
+.motion-image {
+  transition:
+    transform 500ms ease,
+    filter 500ms ease;
+}
+
+.group:hover .motion-image {
+  transform: scale(1.05);
+  filter: saturate(1.08) contrast(1.04);
+}
+
+.motion-focus {
+  transition:
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.motion-focus:focus,
+.motion-focus:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 4px rgb(255 158 67 / 0.2);
+}
+
+.motion-fade-in {
+  animation: ika-fade-in 420ms ease both;
+}
+
+@keyframes ika-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+
+  .motion-pop:hover,
+  .motion-press:hover,
+  .motion-press:active,
+  .motion-focus:focus,
+  .motion-focus:focus-visible,
+  .group:hover .motion-image {
+    transform: none;
+  }
+}
+
 body {
   @apply m-0 min-h-screen overflow-x-clip font-sans antialiased;
 }

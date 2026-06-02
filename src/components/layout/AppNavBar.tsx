@@ -10,28 +10,28 @@ const navItems = [
 function navLinkClass(isActive: boolean) {
   return isActive
     ? 'underline decoration-from-font underline-offset-4'
-    : 'hover:opacity-70'
+    : 'hover:-translate-y-0.5 hover:opacity-70'
 }
 
 export default function AppNavBar() {
   return (
-    <header className="relative z-20 mx-auto w-full max-w-[1436px] px-4 pt-2.5 sm:px-6 lg:px-8">
-      <nav className="flex h-[75px] min-w-0 items-center gap-3 rounded-[64px] bg-[#fff7ef] px-4 sm:gap-6 sm:px-8 lg:gap-10 lg:px-11">
-        <Link to="/home" className="shrink-0">
+    <header className="relative z-20 mx-auto w-full max-w-[1436px] px-4 pt-2 sm:px-6 lg:px-8">
+      <nav className="flex h-16 min-w-0 items-center gap-3 rounded-[40px] bg-[#fff7ef] px-4 sm:gap-6 sm:px-7 lg:gap-9 lg:px-9">
+        <Link to="/home" className="motion-press shrink-0 rounded-full">
           <img
             src={asset('assets/nav/logo.svg')}
             alt="ikas"
-            className="h-9 w-10 sm:h-10 sm:w-11"
+            className="h-8 w-9"
           />
         </Link>
 
-        <div className="flex min-w-0 flex-1 items-center justify-center gap-4 text-lg text-black sm:gap-8 sm:text-xl lg:gap-14 lg:text-2xl">
+        <div className="flex min-w-0 flex-1 items-center justify-center gap-4 text-[16px] text-black sm:gap-8 lg:gap-14">
           {navItems.map(({ id, label, to }) => (
             <NavLink
               key={id}
               to={to}
               className={({ isActive }) =>
-                `whitespace-nowrap ${navLinkClass(isActive)}`
+                `inline-block whitespace-nowrap transition duration-200 ${navLinkClass(isActive)}`
               }
             >
               {label}
@@ -42,7 +42,7 @@ export default function AppNavBar() {
         <NavLink
           to="/add-viewpoint"
           className={({ isActive }) =>
-            `shrink-0 rounded-[40px] bg-[#ff9e43] px-3 py-2 text-lg text-black hover:bg-[#ff8f2a] sm:px-5 sm:text-xl lg:px-6 lg:text-2xl ${isActive ? 'underline decoration-from-font underline-offset-4' : ''}`
+            `motion-press shrink-0 rounded-[32px] bg-[#ff9e43] px-3 py-1.5 text-[16px] text-black hover:bg-[#ff8f2a] sm:px-5 lg:px-6 ${isActive ? 'underline decoration-from-font underline-offset-4' : ''}`
           }
         >
           add viewpoint

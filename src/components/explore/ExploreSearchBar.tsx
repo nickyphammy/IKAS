@@ -9,14 +9,14 @@ export default function ExploreSearchBar() {
       <img
         src={asset('assets/explore/search-icon.png')}
         alt=""
-        className="pointer-events-none absolute left-8 top-1/2 size-8 -translate-y-1/2"
+        className="pointer-events-none absolute left-6 top-1/2 size-6 -translate-y-1/2"
         aria-hidden
       />
       <input
         id="explore-search"
         type="search"
         placeholder="search"
-        className="h-[59px] w-full rounded-[32px] border border-black bg-white/65 pl-16 pr-6 text-xl text-black placeholder:text-black focus:outline-none focus:ring-2 focus:ring-[#ff9e43] sm:text-2xl"
+        className="motion-focus h-12 w-full rounded-[24px] border border-black bg-white/65 pl-14 pr-5 text-[16px] text-black placeholder:text-black focus:outline-none focus:ring-2 focus:ring-[#ff9e43]"
       />
     </div>
   )

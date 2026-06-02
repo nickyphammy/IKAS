@@ -29,7 +29,7 @@ export default function TextField({
       <input
         id={fieldId}
         placeholder={label}
-        className={`h-[72px] w-full rounded-lg bg-[rgba(217,217,217,0.8)] pl-14 pr-4 text-2xl text-black placeholder:text-black focus:outline-none focus:ring-2 focus:ring-[#ff9a76] ${className}`}
+        className={`motion-focus h-14 w-full rounded-lg bg-[rgba(217,217,217,0.8)] pl-12 pr-4 text-[16px] text-black placeholder:text-black focus:outline-none focus:ring-2 focus:ring-[#ff9a76] ${className}`}
         {...props}
       />
     </div>

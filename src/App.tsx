@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import AddViewpointPage from './pages/AddViewpointPage'
+import DailyRecsPage from './pages/DailyRecsPage'
 import ExplorePage from './pages/ExplorePage'
 import HomePage from './pages/HomePage'
 import LandingPage from './pages/LandingPage'
@@ -15,6 +16,7 @@ function App() {
       <Route path="/home" element={<HomePage />} />
       <Route path="/explore" element={<ExplorePage />} />
       <Route path="/saved" element={<SavedPage />} />
+      <Route path="/daily-recs" element={<DailyRecsPage />} />
       <Route path="/add-viewpoint" element={<AddViewpointPage />} />
       <Route path="/viewpoint" element={<ViewpointPage />} />
     </Routes>

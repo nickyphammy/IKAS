@@ -24,11 +24,11 @@ export default function ViewpointInfoRow({
   className = '',
 }: ViewpointInfoRowProps) {
   return (
-    <div className={`flex items-start gap-4 ${className}`}>
+    <div className={`flex items-start gap-3 ${className}`}>
       <div className="mt-0.5">
         <InfoIcon icon={icon} />
       </div>
-      <div className="min-w-0 text-2xl leading-normal text-black">{children}</div>
+      <div className="min-w-0 text-[16px] leading-normal text-black">{children}</div>
     </div>
   )
 }

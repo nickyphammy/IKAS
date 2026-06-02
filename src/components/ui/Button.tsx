@@ -24,7 +24,7 @@ export default function Button({
   to,
   ...props
 }: ButtonProps) {
-  const classes = `inline-flex items-center justify-center rounded-lg px-6 py-2.5 text-xl transition-colors ${variantClasses[variant]} ${className}`
+  const classes = `motion-press inline-flex items-center justify-center rounded-lg px-5 py-2 text-[16px] ${variantClasses[variant]} ${className}`
 
   if (to) {
     return (

@@ -11,7 +11,7 @@ export default function SavedPage() {
       <div className="relative z-10 flex min-h-screen flex-col">
         <AppNavBar />
 
-        <PageContainer className="flex-1 pt-8 lg:pt-12">
+        <PageContainer className="flex-1 pt-5 lg:pt-8">
           <SavedViewpointsSection />
         </PageContainer>
       </div>

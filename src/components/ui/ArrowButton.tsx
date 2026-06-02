@@ -11,7 +11,7 @@ export default function ArrowButton({
   className = '',
   to,
 }: ArrowButtonProps) {
-  const classes = `flex size-[68px] shrink-0 items-center justify-center rounded-full bg-[#ff9a76] transition-colors hover:bg-[#ff8860] active:bg-[#ff764a] ${className}`
+  const classes = `motion-press group flex size-[68px] shrink-0 items-center justify-center rounded-full bg-[#ff9a76] hover:bg-[#ff8860] active:bg-[#ff764a] ${className}`
 
   const arrow = (
     <svg
@@ -23,6 +23,7 @@ export default function ArrowButton({
       aria-hidden
     >
       <path
+        className="transition-transform duration-200 group-hover:translate-x-0.5"
         d="M5 12H19M19 12L13 6M19 12L13 18"
         stroke="white"
         strokeWidth="1.75"

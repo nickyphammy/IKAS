@@ -12,11 +12,11 @@ export default function FormLabel({
   optional,
 }: FormLabelProps) {
   return (
-    <label className="mb-3 block text-2xl font-bold text-black">
+    <label className="mb-2 block text-[16px] font-bold text-black">
       {children}
       {required && <span className="text-red-600"> *</span>}
       {optional && (
-        <span className="ml-1 text-xl font-normal text-[#9f9f9f]">
+        <span className="ml-1 text-[16px] font-normal text-[#9f9f9f]">
           (optional)
         </span>
       )}

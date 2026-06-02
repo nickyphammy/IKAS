@@ -9,8 +9,8 @@ type StarRatingProps = {
 function StarIcon({ filled }: { filled: boolean }) {
   return (
     <svg
-      width="43"
-      height="43"
+      width="32"
+      height="32"
       viewBox="0 0 24 24"
       fill={filled ? '#ff9e43' : '#d9d9d9'}
       xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +43,7 @@ export default function StarRating({ value = 4, onChange }: StarRatingProps) {
               aria-checked={rating >= star}
               aria-label={`${star} star${star === 1 ? '' : 's'}`}
               onClick={() => handleSelect(star)}
-              className="transition-transform hover:scale-105"
+              className="rounded transition duration-150 hover:-translate-y-0.5 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#ff9e43] active:scale-95"
             >
               <StarIcon filled={star <= rating} />
             </button>

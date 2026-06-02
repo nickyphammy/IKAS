@@ -19,27 +19,27 @@ export default function SavedViewpointCard({
   distance,
 }: SavedViewpoint) {
   return (
-    <article className="flex w-full max-w-[312px] shrink-0 flex-col overflow-hidden rounded-[40px] bg-white">
-      <Link to={VIEWPOINT_PATH} className="block h-[263px] w-full overflow-hidden">
-        <img src={image} alt={title} className="size-full object-cover" />
+    <article className="motion-pop group flex w-full max-w-[272px] shrink-0 flex-col overflow-hidden rounded-[24px] bg-white">
+      <Link to={VIEWPOINT_PATH} className="block h-[200px] w-full overflow-hidden">
+        <img src={image} alt={title} className="motion-image size-full object-cover" />
       </Link>
 
-      <div className="flex flex-1 flex-col gap-3 px-4 pb-5 pt-4">
+      <div className="flex flex-1 flex-col gap-2 px-4 pb-4 pt-3">
         <Link
           to={VIEWPOINT_PATH}
-          className="text-2xl font-semibold text-black hover:opacity-80"
+          className="text-[16px] font-semibold text-black transition duration-200 hover:opacity-80 group-hover:text-[#ff7f10]"
         >
           {title}
         </Link>
-        <p className="text-xl text-black">{description}</p>
-        <p className="text-xl text-black">Tags: {tags}</p>
+        <p className="text-[16px] text-black">{description}</p>
+        <p className="text-[16px] text-black">Tags: {tags}</p>
 
         <div className="mt-auto flex items-end justify-between pt-2">
-          <p className="text-xl text-black">{distance}</p>
+          <p className="text-[16px] text-black">{distance}</p>
           <ArrowButton
             label={`View ${title}`}
             to={VIEWPOINT_PATH}
-            className="size-[54px]"
+            className="size-12"
           />
         </div>
       </div>

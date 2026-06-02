@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const RADIUS_OPTIONS = [
   {
@@ -109,7 +110,7 @@ export default function ExploreRadiusTool() {
         {isActive && circleCenter && (
           <>
             <div
-              className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2"
+              className="motion-fade-in pointer-events-none absolute -translate-x-1/2 -translate-y-1/2"
               style={{
                 left: circleCenter.x,
                 top: circleCenter.y,
@@ -133,9 +134,9 @@ export default function ExploreRadiusTool() {
                   top: placedCenter.y + option.diameterPx / 2 + 12,
                 }}
               >
-                <div className="whitespace-nowrap rounded-2xl border border-black bg-white/90 px-4 py-2 text-center text-base text-black shadow-md">
+                <div className="motion-fade-in whitespace-nowrap rounded-xl border border-black bg-white/90 px-3 py-2 text-center text-[16px] text-black shadow-md">
                   <p className="font-semibold">Viewpoints in this area</p>
-                  <p className="text-sm text-[#666]">
+                  <p className="text-[16px] text-[#666]">
                     (preview — search not wired yet)
                   </p>
                 </div>
@@ -145,11 +146,18 @@ export default function ExploreRadiusTool() {
         )}
       </div>
 
-      <div className="pointer-events-auto absolute bottom-6 left-4 z-40 flex max-w-[min(100%,22rem)] flex-col gap-3 sm:left-6 lg:bottom-10">
+      <div className="pointer-events-auto absolute bottom-5 left-4 z-40 flex max-w-[min(100%,20rem)] flex-col gap-2 sm:left-6 lg:bottom-8">
+        <Link
+          to="/daily-recs"
+          className="motion-press rounded-[24px] border border-[#ff7f10] bg-[#ff9e43] px-4 py-2 text-center text-[16px] font-bold text-black shadow-[0_0_22px_rgba(255,126,16,0.65)] hover:bg-[#ff8f2a] hover:shadow-[0_0_30px_rgba(255,126,16,0.85)]"
+        >
+          view recs
+        </Link>
+
         <button
           type="button"
           onClick={handleToggle}
-          className={`rounded-[32px] border border-black px-5 py-3 text-lg font-bold shadow-lg transition-colors sm:text-xl ${
+          className={`motion-press rounded-[24px] border border-black px-4 py-2 text-[16px] font-bold shadow-lg ${
             isActive
               ? 'bg-[#ff9e43] text-black'
               : 'bg-white/90 text-black hover:bg-white'
@@ -159,8 +167,8 @@ export default function ExploreRadiusTool() {
         </button>
 
         {isActive && (
-          <div className="rounded-2xl border border-black bg-white/90 p-4 shadow-lg">
-            <p className="mb-3 text-sm font-bold text-black sm:text-base">
+          <div className="motion-fade-in rounded-xl border border-black bg-white/90 p-3 shadow-lg">
+            <p className="mb-2 text-[16px] font-bold text-black">
               Radius
             </p>
             <div className="flex flex-wrap gap-2">
@@ -169,7 +177,7 @@ export default function ExploreRadiusTool() {
                   key={miles}
                   type="button"
                   onClick={() => setSelectedMiles(miles)}
-                  className={`flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-colors ${
+                  className={`motion-press flex items-center gap-2 rounded-full border px-3 py-1.5 text-[16px] ${
                     selectedMiles === miles
                       ? 'border-black bg-[#fff7ef] font-bold'
                       : 'border-[#ccc] bg-white hover:border-black'
@@ -187,7 +195,7 @@ export default function ExploreRadiusTool() {
                 </button>
               ))}
             </div>
-            <p className="mt-3 text-xs leading-snug text-[#666] sm:text-sm">
+            <p className="mt-2 text-[16px] leading-snug text-[#666]">
               Move over the map, then click to place your search area. Circle
               size is visual only (not true map scale).
             </p>
@@ -195,7 +203,7 @@ export default function ExploreRadiusTool() {
               <button
                 type="button"
                 onClick={handleClearPlacement}
-                className="mt-3 text-sm text-[#0004ff] hover:underline"
+                className="motion-press mt-2 rounded px-1 text-[16px] text-[#0004ff] hover:underline"
               >
                 clear placement
               </button>

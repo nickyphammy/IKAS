@@ -29,7 +29,7 @@ export default function ViewpointPage() {
       <div className="relative z-10 flex min-h-screen flex-col">
         <AppNavBar />
 
-        <PageContainer className="flex-1 pb-10 pt-6">
+        <PageContainer className="flex-1 pb-8 pt-5">
           <ViewpointGallery
             image={viewpoint.image}
             alt={viewpoint.name}

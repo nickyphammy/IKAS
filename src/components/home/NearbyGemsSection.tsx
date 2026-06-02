@@ -22,16 +22,16 @@ const nearbyGems = [
 
 export default function NearbyGemsSection() {
   return (
-    <section className="w-full pb-16">
-      <div className="w-full rounded border border-black p-4 sm:p-6 lg:p-10">
-        <h2 className="mb-8 text-[28px] font-bold text-black sm:text-[32px] lg:mb-12">
+    <section className="motion-fade-in w-full pb-10">
+      <div className="w-full rounded border border-black p-4 sm:p-5 lg:p-7">
+        <h2 className="mb-5 text-[24px] font-bold text-black lg:mb-7">
           Nearby Gems
         </h2>
 
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-16">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-10">
           <LocationFilter />
 
-          <div className="flex min-w-0 gap-4 overflow-x-auto pb-2 sm:gap-6">
+          <div className="flex min-w-0 gap-4 overflow-x-auto pb-2 sm:gap-5">
             {nearbyGems.map((gem) => (
               <ViewpointCard key={gem.title} {...gem} />
             ))}

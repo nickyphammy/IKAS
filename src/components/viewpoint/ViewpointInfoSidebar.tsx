@@ -16,8 +16,8 @@ export default function ViewpointInfoSidebar({
   estimatedVisit,
 }: ViewpointInfoSidebarProps) {
   return (
-    <aside className="flex w-full min-w-0 flex-col gap-4 lg:w-[357px] lg:shrink-0">
-      <div className="flex flex-col gap-8 rounded-lg bg-[#d9d9d9] p-6">
+    <aside className="flex w-full min-w-0 flex-col gap-4 lg:w-[320px] lg:shrink-0">
+      <div className="motion-pop flex flex-col gap-5 rounded-lg bg-[#d9d9d9] p-5">
         <ViewpointInfoRow icon="clock">
           <p>Best time: {bestTime}</p>
         </ViewpointInfoRow>
@@ -26,7 +26,7 @@ export default function ViewpointInfoSidebar({
         </ViewpointInfoRow>
       </div>
 
-      <div className="rounded-lg bg-[#d9d9d9] p-6">
+      <div className="motion-pop rounded-lg bg-[#d9d9d9] p-5">
         <ViewpointInfoRow icon="walk">
           <div className="space-y-4">
             <p>Distance: {distance}</p>

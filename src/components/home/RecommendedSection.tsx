@@ -27,11 +27,11 @@ const recommendations = [
 
 export default function RecommendedSection() {
   return (
-    <section className="w-full py-8">
-      <h2 className="mb-6 text-[28px] font-bold text-black sm:text-[32px]">
+    <section className="motion-fade-in w-full py-5">
+      <h2 className="mb-4 text-[24px] font-bold text-black">
         Recommended for you
       </h2>
-      <div className="flex gap-4 overflow-x-auto pb-2 lg:gap-6">
+      <div className="flex gap-4 overflow-x-auto pb-2 lg:gap-5">
         {recommendations.map((item) => (
           <RecommendedCard key={item.name} {...item} />
         ))}

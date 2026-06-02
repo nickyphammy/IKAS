@@ -6,35 +6,35 @@ import StarRating from './StarRating'
 
 export default function AddViewpointForm() {
   return (
-    <div className="relative w-full min-w-0 max-w-[1166px] rounded-lg bg-[#fff7ef] px-4 py-8 sm:px-10 sm:py-10 lg:px-14 lg:py-12">
+    <div className="motion-fade-in relative w-full min-w-0 max-w-[1040px] rounded-lg bg-[#fff7ef] px-4 py-5 sm:px-8 sm:py-6 lg:px-10 lg:py-8">
       <Link
         to="/home"
-        className="absolute left-6 top-8 text-2xl font-bold text-[#9f9f9f] hover:text-black lg:left-10"
+        className="absolute left-5 top-5 text-[16px] font-bold text-[#9f9f9f] hover:text-black lg:left-8"
         aria-label="Close"
       >
         X
       </Link>
 
-      <h1 className="mb-10 text-center text-[32px] font-bold text-black">
+      <h1 className="mb-6 text-center text-[24px] font-bold text-black">
         add a spot
       </h1>
 
       <form
-        className="flex flex-col gap-10"
+        className="flex flex-col gap-6"
         onSubmit={(event) => event.preventDefault()}
       >
-        <div className="flex flex-col gap-10 lg:flex-row lg:gap-12">
-          <div className="w-full lg:w-[529px] lg:shrink-0">
+        <div className="flex flex-col gap-6 lg:flex-row lg:gap-8">
+          <div className="w-full lg:w-[440px] lg:shrink-0">
             <ImageDropZone />
           </div>
 
-          <div className="flex flex-1 flex-col gap-8">
+          <div className="flex flex-1 flex-col gap-5">
             <div>
               <FormLabel required>where is it?</FormLabel>
               <input
                 type="text"
                 placeholder="orange county"
-                className="h-[50px] w-full rounded-[32px] bg-white px-6 text-xl text-black placeholder:text-[#9f9f9f] focus:outline-none focus:ring-2 focus:ring-[#ff9e43]"
+                className="motion-focus h-10 w-full rounded-[24px] bg-white px-5 text-[16px] text-black placeholder:text-[#9f9f9f] focus:outline-none focus:ring-2 focus:ring-[#ff9e43]"
               />
             </div>
 
@@ -44,7 +44,7 @@ export default function AddViewpointForm() {
               <FormLabel optional>description</FormLabel>
               <textarea
                 rows={5}
-                className="h-[154px] w-full resize-none rounded-[18px] bg-white px-5 py-4 text-xl text-black focus:outline-none focus:ring-2 focus:ring-[#ff9e43]"
+                className="motion-focus h-28 w-full resize-none rounded-2xl bg-white px-4 py-3 text-[16px] text-black focus:outline-none focus:ring-2 focus:ring-[#ff9e43]"
               />
             </div>
           </div>
@@ -54,7 +54,7 @@ export default function AddViewpointForm() {
           <Button
             type="submit"
             variant="accent"
-            className="h-[60px] w-full max-w-[614px] rounded-2xl text-2xl"
+            className="h-12 w-full max-w-[520px] rounded-xl text-[16px]"
           >
             submit
           </Button>

@@ -2,19 +2,19 @@ import Button from '../ui/Button'
 
 export default function HeroContent() {
   return (
-    <div className="w-full min-w-0 max-w-[663px]">
-      <h1 className="text-4xl font-bold leading-tight text-black sm:text-6xl lg:text-[96px] lg:leading-[1.1]">
+    <div className="motion-fade-in w-full min-w-0 max-w-[663px]">
+      <h1 className="text-[24px] font-bold leading-tight text-black sm:text-[48px] lg:text-[64px] lg:leading-[1.1]">
         See Somewhere New
       </h1>
-      <p className="mt-8 max-w-[575px] text-xl leading-normal text-black sm:mt-10 sm:text-2xl">
+      <p className="mt-6 max-w-[575px] text-[16px] leading-normal text-black sm:mt-8">
         Discover hidden overlooks, sunset spots, and cinematic scenery shared by
         explorers near you.
       </p>
-      <div className="mt-12">
+      <div className="mt-8">
         <Button
           to="/signup"
           variant="cta"
-          className="h-[59px] min-w-[240px] text-xl"
+          className="h-12 min-w-[216px] text-[16px]"
         >
           get started
         </Button>

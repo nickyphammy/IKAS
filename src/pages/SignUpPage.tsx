@@ -8,13 +8,13 @@ export default function SignUpPage() {
       <PageBackground />
 
       <div className="relative z-10 flex min-h-screen flex-col">
-        <PageContainer className="pt-8">
+        <PageContainer className="pt-5">
           <SignUpLogo />
         </PageContainer>
 
-        <div className="flex flex-1 items-center justify-center px-4 py-16 sm:py-24">
-          <div className="flex w-full max-w-[765px] flex-col items-center rounded-[40px] bg-white/70 px-6 py-12 sm:px-12 sm:py-20">
-            <h1 className="mb-12 text-[32px] font-bold text-black sm:text-[40px]">
+        <div className="flex flex-1 items-center justify-center px-4 py-8 sm:py-12">
+          <div className="motion-fade-in flex w-full max-w-[640px] flex-col items-center rounded-[24px] bg-white/70 px-6 py-8 sm:px-10 sm:py-10">
+            <h1 className="mb-6 text-[24px] font-bold text-black">
               Sign Up
             </h1>
             <SignUpForm />

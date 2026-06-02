@@ -12,7 +12,7 @@ export default function HomePage() {
       <div className="relative z-10 flex min-h-screen flex-col">
         <AppNavBar />
 
-        <PageContainer className="flex-1 pt-8 lg:pt-12">
+        <PageContainer className="flex-1 pt-5 lg:pt-8">
           <RecommendedSection />
           <NearbyGemsSection />
         </PageContainer>

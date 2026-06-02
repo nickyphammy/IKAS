@@ -35,7 +35,7 @@ export default function ViewpointStarRating({
           />
         ))}
       </div>
-      <span className="text-[32px] font-bold text-black">{rating.toFixed(1)}</span>
+      <span className="text-[24px] font-bold text-black">{rating.toFixed(1)}</span>
     </div>
   )
 }
