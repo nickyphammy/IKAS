@@ -106,6 +106,10 @@ html {
   overflow-x: clip;
 }
 
+.leaflet-container {
+  font-family: inherit;
+}
+
 /* Sampled from hero-bg.png (570×855) */
 .ika-page-gradient {
   background: linear-gradient(
