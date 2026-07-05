@@ -1,0 +1,30 @@
+@import 'tailwindcss';
+@import 'leaflet/dist/leaflet.css';
+
+@theme {
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --color-brand: #ff8c42;
+  --color-brand-dark: #e67a30;
+  --color-brand-light: #fff4eb;
+  --color-surface: #fafafa;
+  --color-muted: #64748b;
+  --color-border: #e2e8f0;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-surface font-sans text-slate-900 antialiased;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
