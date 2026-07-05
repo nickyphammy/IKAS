@@ -1,14 +1,21 @@
-import { useMemo, useState } from 'react'
-import { MapContainer, TileLayer } from 'react-leaflet'
+import { useMemo, useRef, useState } from 'react'
+import { LocateFixed } from 'lucide-react'
+import { MapContainer } from 'react-leaflet'
 import { ExploreControls } from '@/components/explore/ExploreControls'
 import { ExploreMapLayers } from '@/components/explore/ExploreMapLayers'
 import { ExploreRadiusProvider, useExploreRadius } from '@/components/explore/exploreRadiusContext'
+import { MapFlyToHandler } from '@/components/map/MapFlyToHandler'
+import { MapTileLayer } from '@/components/map/MapTileLayer'
+import { UserLocationLayer } from '@/components/map/UserLocationLayer'
 import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from '@/lib/constants'
-import { useViewpoints } from '@/hooks/use-viewpoints'
+import { useGeolocation, useViewpoints } from '@/hooks/use-viewpoints'
+import { Button } from '@/components/ui/button'
 
 function ExploreMapContent() {
   const [search, setSearch] = useState('')
   const { center, radiusMiles, radiusMode } = useExploreRadius()
+  const { data: userLocation, refetch: refetchLocation } = useGeolocation()
+  const flyToRef = useRef<(lat: number, lng: number) => void>(() => {})
 
   const filters = useMemo(
     () => ({
@@ -22,8 +29,19 @@ function ExploreMapContent() {
 
   const { data: viewpoints = [] } = useViewpoints(filters)
 
+  async function handleLocate() {
+    if (userLocation) {
+      flyToRef.current(userLocation.lat, userLocation.lng)
+      return
+    }
+    const result = await refetchLocation()
+    if (result.data) {
+      flyToRef.current(result.data.lat, result.data.lng)
+    }
+  }
+
   return (
-    <div className="relative h-[calc(100vh-4rem)] md:h-[calc(100vh-4rem)]">
+    <div className="relative h-[calc(100dvh-8rem)] md:h-[calc(100dvh-4rem)]">
       <ExploreControls search={search} onSearchChange={setSearch} />
       <MapContainer
         center={[DEFAULT_MAP_CENTER.lat, DEFAULT_MAP_CENTER.lng]}
@@ -31,12 +49,23 @@ function ExploreMapContent() {
         className="h-full w-full"
         scrollWheelZoom
       >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
+        <MapTileLayer />
+        <UserLocationLayer flyToOnLoad zoom={13} />
+        <MapFlyToHandler flyToRef={flyToRef} />
         <ExploreMapLayers viewpoints={viewpoints} />
       </MapContainer>
+      <div className="absolute bottom-24 right-4 z-[1000] md:bottom-6">
+        <Button
+          type="button"
+          size="icon"
+          variant="secondary"
+          className="h-12 w-12 rounded-full bg-white shadow-lg"
+          onClick={handleLocate}
+          aria-label="Go to my location"
+        >
+          <LocateFixed className="h-5 w-5 text-brand" />
+        </Button>
+      </div>
     </div>
   )
 }

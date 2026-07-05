@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { X, Upload } from 'lucide-react'
+import { LocationPickerMap } from '@/components/map/LocationPickerMap'
 import { PageContainer } from '@/components/layout/PageShell'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -16,8 +17,8 @@ export default function AddViewpointPage() {
 
   const [name, setName] = useState('')
   const [address, setAddress] = useState('')
-  const [latitude, setLatitude] = useState('')
-  const [longitude, setLongitude] = useState('')
+  const [latitude, setLatitude] = useState<number | null>(null)
+  const [longitude, setLongitude] = useState<number | null>(null)
   const [description, setDescription] = useState('')
   const [bestTime, setBestTime] = useState('')
   const [difficulty, setDifficulty] = useState('')
@@ -27,14 +28,17 @@ export default function AddViewpointPage() {
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [error, setError] = useState<string | null>(null)
 
+  function handleLocationChange(lat: number, lng: number) {
+    setLatitude(lat)
+    setLongitude(lng)
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
 
-    const lat = parseFloat(latitude)
-    const lng = parseFloat(longitude)
-    if (Number.isNaN(lat) || Number.isNaN(lng)) {
-      setError('Please enter valid latitude and longitude')
+    if (latitude == null || longitude == null) {
+      setError('Please pin a location on the map')
       return
     }
 
@@ -42,8 +46,8 @@ export default function AddViewpointPage() {
       const vp = await createViewpoint.mutateAsync({
         name,
         address,
-        latitude: lat,
-        longitude: lng,
+        latitude,
+        longitude,
         description,
         best_time: bestTime || undefined,
         difficulty: difficulty || undefined,
@@ -75,6 +79,15 @@ export default function AddViewpointPage() {
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
+          <label className="mb-1.5 block text-sm font-medium">Location on map *</label>
+          <LocationPickerMap
+            latitude={latitude}
+            longitude={longitude}
+            onLocationChange={handleLocationChange}
+          />
+        </div>
+
+        <div>
           <label className="mb-1.5 block text-sm font-medium">Name *</label>
           <Input value={name} onChange={(e) => setName(e.target.value)} required placeholder="Sunset Ridge Lookout" />
         </div>
@@ -82,17 +95,6 @@ export default function AddViewpointPage() {
         <div>
           <label className="mb-1.5 block text-sm font-medium">Address *</label>
           <Input value={address} onChange={(e) => setAddress(e.target.value)} required placeholder="123 Trail Rd, City, State" />
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <label className="mb-1.5 block text-sm font-medium">Latitude *</label>
-            <Input value={latitude} onChange={(e) => setLatitude(e.target.value)} required placeholder="33.5427" />
-          </div>
-          <div>
-            <label className="mb-1.5 block text-sm font-medium">Longitude *</label>
-            <Input value={longitude} onChange={(e) => setLongitude(e.target.value)} required placeholder="-117.7854" />
-          </div>
         </div>
 
         <div>

@@ -1,15 +1,8 @@
 import { Circle, Marker, Popup, useMapEvents } from 'react-leaflet'
 import { useExploreRadius } from '@/components/explore/exploreRadiusContext'
 import { milesToMeters } from '@/lib/geo'
+import { viewpointMarkerIcon } from '@/lib/map'
 import type { Viewpoint } from '@/types'
-import L from 'leaflet'
-
-const markerIcon = L.divIcon({
-  className: '',
-  html: '<div style="width:14px;height:14px;background:#ff8c42;border:2px solid white;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.3)"></div>',
-  iconSize: [14, 14],
-  iconAnchor: [7, 7],
-})
 
 function MapClickHandler() {
   const { radiusMode, setCenter } = useExploreRadius()
@@ -36,7 +29,7 @@ export function ExploreMapLayers({ viewpoints }: ExploreMapLayersProps) {
     <>
       <MapClickHandler />
       {viewpoints.map((vp) => (
-        <Marker key={vp.id} position={[vp.latitude, vp.longitude]} icon={markerIcon}>
+        <Marker key={vp.id} position={[vp.latitude, vp.longitude]} icon={viewpointMarkerIcon}>
           <Popup>
             <div className="min-w-[160px]">
               <p className="font-semibold">{vp.name}</p>

@@ -11,6 +11,7 @@ import HomePage from '@/pages/HomePage'
 import LandingPage from '@/pages/LandingPage'
 import SavedPage from '@/pages/SavedPage'
 import ViewpointPage from '@/pages/ViewpointPage'
+import { AppNavBar } from '@/components/layout/AppNavBar'
 import { PageShell } from '@/components/layout/PageShell'
 
 const queryClient = new QueryClient({
@@ -24,15 +25,8 @@ const queryClient = new QueryClient({
 
 function PublicExploreLayout() {
   return (
-    <PageShell>
-      <header className="flex h-16 items-center justify-between border-b border-border bg-white px-6">
-        <a href="/" className="text-lg font-bold text-slate-900">
-          IKAS
-        </a>
-        <a href="/login" className="text-sm font-medium text-brand hover:underline">
-          Log in
-        </a>
-      </header>
+    <PageShell withNav>
+      <AppNavBar />
       <ExplorePage />
     </PageShell>
   )

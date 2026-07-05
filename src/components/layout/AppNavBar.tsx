@@ -13,7 +13,7 @@ const navItems = [
 
 export function AppNavBar() {
   const location = useLocation()
-  const { signOut } = useAuth()
+  const { user, signOut } = useAuth()
 
   return (
     <>
@@ -46,9 +46,15 @@ export function AppNavBar() {
                 Add spot
               </Link>
             </Button>
-            <Button variant="ghost" size="icon" onClick={() => signOut()} aria-label="Sign out">
-              <LogOut className="h-4 w-4" />
-            </Button>
+            {user ? (
+              <Button variant="ghost" size="icon" onClick={() => signOut()} aria-label="Sign out">
+                <LogOut className="h-4 w-4" />
+              </Button>
+            ) : (
+              <Button variant="ghost" size="sm" asChild>
+                <Link to="/login">Log in</Link>
+              </Button>
+            )}
           </div>
         </div>
       </header>
