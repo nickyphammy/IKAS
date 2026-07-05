@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/app/auth-context'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -13,6 +13,8 @@ interface AuthFormProps {
 
 export default function AuthPage({ mode }: AuthFormProps) {
   const navigate = useNavigate()
+  const location = useLocation()
+  const redirectTo = (location.state as { from?: string } | null)?.from ?? '/home'
   const { signIn, signUp, signInWithGoogle, isConfigured } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -35,7 +37,7 @@ export default function AuthPage({ mode }: AuthFormProps) {
       } else {
         await signUp(email, password)
       }
-      navigate('/home')
+      navigate(redirectTo)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong')
     } finally {

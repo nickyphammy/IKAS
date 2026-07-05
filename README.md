@@ -35,6 +35,10 @@ npm run dev
 
 ### 3. Connect Supabase
 
+**Full step-by-step guide:** [docs/SUPABASE_SETUP.md](docs/SUPABASE_SETUP.md)
+
+Quick summary:
+
 1. Create a project at [supabase.com](https://supabase.com)
 2. Copy `.env.example` to `.env` and fill in your project URL and anon key
 3. Apply migrations:

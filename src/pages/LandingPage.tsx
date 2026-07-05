@@ -29,12 +29,18 @@ export default function LandingPage() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button size="lg" asChild>
-                <Link to="/signup">Get started</Link>
+                <Link to="/home">Browse viewpoints</Link>
               </Button>
               <Button size="lg" variant="secondary" asChild>
                 <Link to="/explore">Explore map</Link>
               </Button>
             </div>
+            <p className="mt-4 text-sm text-muted">
+              <Link to="/signup" className="font-semibold text-brand hover:underline">
+                Create an account
+              </Link>{' '}
+              to save spots and add your own
+            </p>
           </div>
           <div className="relative hidden lg:block">
             <div className="absolute -left-4 top-8 h-64 w-48 rotate-[-6deg] rounded-2xl bg-gradient-to-br from-brand/20 to-orange-100 shadow-lg" />
@@ -73,8 +79,8 @@ export default function LandingPage() {
             <EmptyState
               title="No viewpoints yet"
               description="Be the first to share a scenic spot with the community."
-              actionLabel="Add a viewpoint"
-              actionTo="/signup"
+              actionLabel="Explore viewpoints"
+              actionTo="/explore"
             />
           )}
         </section>

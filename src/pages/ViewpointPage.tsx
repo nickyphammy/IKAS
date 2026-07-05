@@ -72,16 +72,25 @@ export default function ViewpointPage() {
                 </p>
               </div>
               <div className="flex gap-2">
-                {user && id && (
-                  <Button
-                    variant={isSaved ? 'default' : 'secondary'}
-                    size="sm"
-                    onClick={() => toggleSaved.mutate(id)}
-                    disabled={toggleSaved.isPending}
-                  >
-                    <Bookmark className="h-4 w-4" />
-                    {isSaved ? 'Saved' : 'Save'}
-                  </Button>
+                {id && (
+                  user ? (
+                    <Button
+                      variant={isSaved ? 'default' : 'secondary'}
+                      size="sm"
+                      onClick={() => toggleSaved.mutate(id)}
+                      disabled={toggleSaved.isPending}
+                    >
+                      <Bookmark className="h-4 w-4" />
+                      {isSaved ? 'Saved' : 'Save'}
+                    </Button>
+                  ) : (
+                    <Button variant="secondary" size="sm" asChild>
+                      <Link to="/login" state={{ from: `/viewpoint/${id}` }}>
+                        <Bookmark className="h-4 w-4" />
+                        Save
+                      </Link>
+                    </Button>
+                  )
                 )}
                 <Button
                   variant="ghost"
@@ -106,7 +115,7 @@ export default function ViewpointPage() {
               </div>
             )}
 
-            {user && id && (
+            {user && id ? (
               <div className="mt-6 rounded-2xl border border-border bg-white p-5">
                 <p className="mb-2 text-sm font-medium">Your rating</p>
                 <StarRatingInput
@@ -115,6 +124,13 @@ export default function ViewpointPage() {
                   size="lg"
                 />
               </div>
+            ) : (
+              <p className="mt-6 text-sm text-muted">
+                <Link to="/login" state={{ from: `/viewpoint/${id}` }} className="font-semibold text-brand hover:underline">
+                  Log in
+                </Link>{' '}
+                to rate this spot
+              </p>
             )}
 
             <p className="mt-6 leading-relaxed text-slate-700">{viewpoint.description}</p>

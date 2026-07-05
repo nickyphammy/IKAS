@@ -1,12 +1,40 @@
 # Dependencies
 node_modules/
 
-# Build
+# Build output
 dist/
+build/
 
-# Environment
+# Environment variables (NEVER commit real keys)
 .env
-.env.local
+.env.*
+!.env.example
+
+# Supabase local CLI state (can contain linked project credentials)
+supabase/.temp/
+.branches
+.temp
+.supabase/
+
+# Deployment tooling (project linking metadata)
+.vercel/
+.netlify/
+
+# Credentials and private keys
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+secrets.json
+service-account*.json
+
+# Logs (can leak paths, tokens, or user data)
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
 # Editor
 .vscode/
@@ -14,7 +42,10 @@ dist/
 
 # OS
 .DS_Store
+Thumbs.db
 
-# Supabase
-.branches
-.temp
+# Test / coverage
+coverage/
+
+# NOTE: supabase/migrations/ and supabase/config.toml are intentionally tracked.
+# Migrations are schema definitions (no secrets) and must be version-controlled.
