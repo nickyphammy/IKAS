@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "healthcheck": "node scripts/supabase-health-check.mjs",
+    "clear-db": "node scripts/clear-supabase-data.mjs",
     "lint": "oxlint",
     "preview": "vite preview"
   },
