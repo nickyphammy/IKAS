@@ -1,12 +1,13 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Loader2, X, Upload } from 'lucide-react'
+import { Loader2, MapPin, X, Upload } from 'lucide-react'
 import { LocationPickerMap } from '@/components/map/LocationPickerMap'
 import { PageContainer } from '@/components/layout/PageShell'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { StarRatingInput } from '@/components/ui/rating'
+import { useAddressSuggestions } from '@/hooks/use-address-suggestions'
 import { useCreateViewpoint } from '@/hooks/use-viewpoints'
 import { compressImageForUpload, formatFileSize } from '@/lib/compress-image'
 import { cn } from '@/lib/utils'
@@ -26,6 +27,19 @@ export default function AddViewpointPage() {
   const [imageCompressNote, setImageCompressNote] = useState<string | null>(null)
   const [imageCompressing, setImageCompressing] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  const {
+    suggestions: addressSuggestions,
+    loading: addressLoading,
+    error: addressLookupError,
+  } = useAddressSuggestions(latitude, longitude)
+
+  useEffect(() => {
+    if (latitude == null || longitude == null || addressLoading || !addressSuggestions.length) {
+      return
+    }
+    setAddress(addressSuggestions[0].label)
+  }, [latitude, longitude, addressLoading, addressSuggestions])
 
   async function handleImageSelect(file: File | null) {
     if (!file) {
@@ -148,22 +162,61 @@ export default function AddViewpointPage() {
         </div>
 
         <div>
+          <label className="mb-1.5 block text-sm font-medium">Address *</label>
+          <div className="relative">
+            <Input
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              required
+              placeholder={
+                latitude != null && longitude != null
+                  ? 'Looking up address…'
+                  : 'Pin a location on the map first'
+              }
+              disabled={latitude == null || longitude == null}
+            />
+            {addressLoading && (
+              <Loader2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-muted" />
+            )}
+          </div>
+          {latitude != null && longitude != null && (
+            <p className="mt-1.5 text-xs text-muted">
+              {addressLoading
+                ? 'Finding address for pinned location…'
+                : 'Address autofills from the map pin — pick another suggestion or edit manually'}
+            </p>
+          )}
+          {addressLookupError && !addressLoading && (
+            <p className="mt-1.5 text-xs text-amber-700">{addressLookupError}</p>
+          )}
+          {addressSuggestions.length > 1 && !addressLoading && (
+            <ul className="mt-2 space-y-1 rounded-xl border border-border bg-white p-2">
+              {addressSuggestions.map((suggestion) => (
+                <li key={suggestion.id}>
+                  <button
+                    type="button"
+                    onClick={() => setAddress(suggestion.label)}
+                    className={cn(
+                      'flex w-full items-start gap-2 rounded-lg px-3 py-2 text-left text-sm transition hover:bg-brand-light/40',
+                      address === suggestion.label && 'bg-brand-light/60 font-medium text-brand',
+                    )}
+                  >
+                    <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-muted" />
+                    <span>{suggestion.label}</span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div>
           <label className="mb-1.5 block text-sm font-medium">Name *</label>
           <Input
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
             placeholder="Sunset Ridge Lookout"
-          />
-        </div>
-
-        <div>
-          <label className="mb-1.5 block text-sm font-medium">Address *</label>
-          <Input
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            required
-            placeholder="123 Trail Rd, City, State"
           />
         </div>
 
