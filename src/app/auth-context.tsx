@@ -8,7 +8,7 @@ import {
   type ReactNode,
 } from 'react'
 import type { Session, User } from '@supabase/supabase-js'
-import { getSupabase, isSupabaseConfigured } from '@/lib/supabase'
+import { getSupabase, getSupabaseConfigError, isSupabaseConfigured } from '@/lib/supabase'
 import { ensureProfile } from '@/services/profiles'
 import type { Profile } from '@/types'
 

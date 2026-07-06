@@ -18,14 +18,15 @@ export function ProtectedRoute() {
   }
 
   if (!isConfigured) {
+    const configError = getSupabaseConfigError()
     return (
       <PageShell withNav>
         <AppNavBar />
         <div className="mx-auto max-w-lg px-4 py-16 text-center">
           <h2 className="text-xl font-semibold">Supabase not connected</h2>
           <p className="mt-2 text-sm text-muted">
-            Add your Supabase URL and anon key to <code>.env</code> to enable auth and data.
-            The UI is fully functional with empty states until then.
+            {configError ??
+              'Add your Supabase URL and anon key to .env, save the file, and restart npm run dev.'}
           </p>
         </div>
         <Outlet />

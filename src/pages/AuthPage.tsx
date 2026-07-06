@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/app/auth-context'
+import { getSupabaseConfigError } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -29,7 +30,7 @@ export default function AuthPage({ mode }: AuthFormProps) {
     setLoading(true)
     try {
       if (!isConfigured) {
-        setError('Supabase is not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to .env')
+        setError(getSupabaseConfigError() ?? 'Supabase is not configured. Save .env and restart the dev server.')
         return
       }
       if (isLogin) {

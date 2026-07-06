@@ -33,8 +33,8 @@ create table public.viewpoints (
   address text not null,
   latitude double precision not null,
   longitude double precision not null,
-  location geography(point, 4326) generated always as (
-    extensions.st_setsrid(extensions.st_makepoint(longitude, latitude), 4326)::geography
+  location extensions.geography(point, 4326) generated always as (
+    extensions.st_setsrid(extensions.st_makepoint(longitude, latitude), 4326)::extensions.geography
   ) stored,
   best_time text,
   difficulty text,
@@ -175,14 +175,14 @@ returns setof public.viewpoints_with_stats
 language sql
 stable
 security invoker
-set search_path = public
+set search_path = public, extensions
 as $$
   select vws.*
   from public.viewpoints_with_stats vws
   join public.viewpoints v on v.id = vws.id
   where extensions.st_dwithin(
     v.location,
-    extensions.st_setsrid(extensions.st_makepoint(center_lng, center_lat), 4326)::geography,
+    extensions.st_setsrid(extensions.st_makepoint(center_lng, center_lat), 4326)::extensions.geography,
     radius_miles * 1609.344
   );
 $$;

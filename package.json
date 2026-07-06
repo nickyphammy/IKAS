@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "healthcheck": "node scripts/supabase-health-check.mjs",
     "lint": "oxlint",
     "preview": "vite preview"
   },
