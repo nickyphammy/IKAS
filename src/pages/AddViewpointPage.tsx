@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { X, Upload } from 'lucide-react'
+import { Loader2, X, Upload } from 'lucide-react'
 import { LocationPickerMap } from '@/components/map/LocationPickerMap'
 import { PageContainer } from '@/components/layout/PageShell'
 import { Button } from '@/components/ui/button'
@@ -9,6 +9,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { StarRatingInput } from '@/components/ui/rating'
 import { useCreateViewpoint } from '@/hooks/use-viewpoints'
 import { BEST_TIME_OPTIONS, DIFFICULTY_OPTIONS } from '@/lib/constants'
+import { compressImageForUpload, formatFileSize } from '@/lib/compress-image'
 import { cn } from '@/lib/utils'
 
 export default function AddViewpointPage() {
@@ -26,7 +27,37 @@ export default function AddViewpointPage() {
   const [tags, setTags] = useState('')
   const [rating, setRating] = useState(4)
   const [imageFile, setImageFile] = useState<File | null>(null)
+  const [imageCompressNote, setImageCompressNote] = useState<string | null>(null)
+  const [imageCompressing, setImageCompressing] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  async function handleImageSelect(file: File | null) {
+    if (!file) {
+      setImageFile(null)
+      setImageCompressNote(null)
+      return
+    }
+
+    setImageCompressing(true)
+    setImageCompressNote(null)
+    try {
+      const result = await compressImageForUpload(file)
+      setImageFile(result.file)
+      if (result.wasCompressed) {
+        setImageCompressNote(
+          `Optimized ${formatFileSize(result.originalSize)} → ${formatFileSize(result.compressedSize)}`,
+        )
+      } else {
+        setImageCompressNote(`Ready to upload (${formatFileSize(result.compressedSize)})`)
+      }
+    } catch {
+      setError('Could not process image. Try a different file.')
+      setImageFile(null)
+      setImageCompressNote(null)
+    } finally {
+      setImageCompressing(false)
+    }
+  }
 
   function handleLocationChange(lat: number, lng: number) {
     setLatitude(lat)
@@ -156,19 +187,35 @@ export default function AddViewpointPage() {
           <label
             className={cn(
               'flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-border bg-white px-6 py-10 transition hover:border-brand hover:bg-brand-light/30',
+              imageCompressing && 'pointer-events-none opacity-60',
             )}
           >
-            <Upload className="mb-2 h-8 w-8 text-muted" />
+            {imageCompressing ? (
+              <Loader2 className="mb-2 h-8 w-8 animate-spin text-brand" />
+            ) : (
+              <Upload className="mb-2 h-8 w-8 text-muted" />
+            )}
             <span className="text-sm text-muted">
-              {imageFile ? imageFile.name : 'Click to upload an image'}
+              {imageCompressing
+                ? 'Optimizing image…'
+                : imageFile
+                  ? imageFile.name
+                  : 'Click to upload an image'}
             </span>
+            {imageCompressNote && (
+              <span className="mt-1 text-xs text-brand">{imageCompressNote}</span>
+            )}
             <input
               type="file"
               accept="image/*"
               className="hidden"
-              onChange={(e) => setImageFile(e.target.files?.[0] ?? null)}
+              disabled={imageCompressing}
+              onChange={(e) => void handleImageSelect(e.target.files?.[0] ?? null)}
             />
           </label>
+          <p className="mt-1.5 text-xs text-muted">
+            Images are resized to 1600px max and compressed as JPEG to save storage.
+          </p>
         </div>
 
         {error && (

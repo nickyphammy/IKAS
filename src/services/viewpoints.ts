@@ -1,4 +1,5 @@
 import { getSupabase, isSupabaseConfigured } from '@/lib/supabase'
+import { compressImageForUpload } from '@/lib/compress-image'
 import type { Viewpoint, ViewpointWithStats } from '@/types'
 
 function mapViewpoint(row: ViewpointWithStats): Viewpoint {
@@ -170,11 +171,12 @@ export async function uploadViewpointImage(file: File, userId: string): Promise<
   const supabase = getSupabase()
   if (!supabase) throw new Error('Supabase is not configured')
 
-  const ext = file.name.split('.').pop() ?? 'jpg'
-  const path = `${userId}/${crypto.randomUUID()}.${ext}`
+  const { file: compressed } = await compressImageForUpload(file)
+  const path = `${userId}/${crypto.randomUUID()}.jpg`
 
-  const { error } = await supabase.storage.from('viewpoint-images').upload(path, file, {
+  const { error } = await supabase.storage.from('viewpoint-images').upload(path, compressed, {
     upsert: false,
+    contentType: 'image/jpeg',
   })
   if (error) throw error
 

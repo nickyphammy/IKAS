@@ -3,6 +3,7 @@ import { useAuth } from '@/app/auth-context'
 import { AppNavBar } from '@/components/layout/AppNavBar'
 import { PageShell } from '@/components/layout/PageShell'
 import { Skeleton } from '@/components/ui/skeleton'
+import { getSupabaseConfigError } from '@/lib/supabase'
 
 export function ProtectedRoute() {
   const { user, loading, isConfigured } = useAuth()
