@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Loader2, MapPin, X, Upload } from 'lucide-react'
+import { Loader2, MapPin, Search, X, Upload } from 'lucide-react'
 import { LocationPickerMap } from '@/components/map/LocationPickerMap'
 import { PageContainer } from '@/components/layout/PageShell'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { StarRatingInput } from '@/components/ui/rating'
+import { useAddressSearch } from '@/hooks/use-address-search'
 import { useAddressSuggestions } from '@/hooks/use-address-suggestions'
 import { useCreateViewpoint } from '@/hooks/use-viewpoints'
 import { compressImageForUpload, formatFileSize } from '@/lib/compress-image'
+import type { AddressSearchResult } from '@/lib/reverse-geocode'
 import { cn } from '@/lib/utils'
 
 export default function AddViewpointPage() {
@@ -27,6 +29,13 @@ export default function AddViewpointPage() {
   const [imageCompressNote, setImageCompressNote] = useState<string | null>(null)
   const [imageCompressing, setImageCompressing] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [flyTo, setFlyTo] = useState<{
+    latitude: number
+    longitude: number
+    key: number
+  } | null>(null)
+  const skipAddressAutofillRef = useRef(false)
+  const lastAutofilledAddressRef = useRef<string | null>(null)
 
   const {
     suggestions: addressSuggestions,
@@ -34,12 +43,58 @@ export default function AddViewpointPage() {
     error: addressLookupError,
   } = useAddressSuggestions(latitude, longitude)
 
+  const addressSearchQuery = address.trim()
+  const isAddressSearchActive =
+    addressSearchQuery.length >= 3 && addressSearchQuery !== lastAutofilledAddressRef.current
+
+  const {
+    results: addressSearchResults,
+    loading: addressSearchLoading,
+    error: addressSearchError,
+  } = useAddressSearch(address, isAddressSearchActive)
+
+  const showAddressSearch =
+    isAddressSearchActive &&
+    (addressSearchLoading || addressSearchResults.length > 0 || Boolean(addressSearchError))
+
   useEffect(() => {
+    if (skipAddressAutofillRef.current) {
+      skipAddressAutofillRef.current = false
+      return
+    }
+    if (isAddressSearchActive) return
     if (latitude == null || longitude == null || addressLoading || !addressSuggestions.length) {
       return
     }
-    setAddress(addressSuggestions[0].label)
-  }, [latitude, longitude, addressLoading, addressSuggestions])
+    const nextAddress = addressSuggestions[0].label
+    setAddress(nextAddress)
+    lastAutofilledAddressRef.current = nextAddress
+  }, [
+    latitude,
+    longitude,
+    addressLoading,
+    addressSuggestions,
+    isAddressSearchActive,
+  ])
+
+  function applySearchResult(result: AddressSearchResult) {
+    skipAddressAutofillRef.current = true
+    setAddress(result.label)
+    lastAutofilledAddressRef.current = result.label
+    setLatitude(result.latitude)
+    setLongitude(result.longitude)
+    setFlyTo({
+      latitude: result.latitude,
+      longitude: result.longitude,
+      key: Date.now(),
+    })
+  }
+
+  function handleAddressKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key !== 'Enter' || !addressSearchResults.length) return
+    e.preventDefault()
+    applySearchResult(addressSearchResults[0])
+  }
 
   async function handleImageSelect(file: File | null) {
     if (!file) {
@@ -157,6 +212,7 @@ export default function AddViewpointPage() {
           <LocationPickerMap
             latitude={latitude}
             longitude={longitude}
+            flyTo={flyTo}
             onLocationChange={handleLocationChange}
           />
         </div>
@@ -164,32 +220,49 @@ export default function AddViewpointPage() {
         <div>
           <label className="mb-1.5 block text-sm font-medium">Address *</label>
           <div className="relative">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
             <Input
               value={address}
               onChange={(e) => setAddress(e.target.value)}
+              onKeyDown={handleAddressKeyDown}
               required
-              placeholder={
-                latitude != null && longitude != null
-                  ? 'Looking up address…'
-                  : 'Pin a location on the map first'
-              }
-              disabled={latitude == null || longitude == null}
+              className="pl-9"
+              placeholder="Search an address or place name"
             />
-            {addressLoading && (
+            {(addressLoading || addressSearchLoading) && (
               <Loader2 className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 animate-spin text-muted" />
             )}
           </div>
-          {latitude != null && longitude != null && (
-            <p className="mt-1.5 text-xs text-muted">
-              {addressLoading
-                ? 'Finding address for pinned location…'
-                : 'Address autofills from the map pin — pick another suggestion or edit manually'}
-            </p>
+          <p className="mt-1.5 text-xs text-muted">
+            Search to place the pin on the map, or tap the map to autofill the address
+          </p>
+          {addressSearchError && showAddressSearch && !addressSearchLoading && (
+            <p className="mt-1.5 text-xs text-amber-700">{addressSearchError}</p>
           )}
-          {addressLookupError && !addressLoading && (
+          {addressLookupError && !addressLoading && !showAddressSearch && latitude != null && (
             <p className="mt-1.5 text-xs text-amber-700">{addressLookupError}</p>
           )}
-          {addressSuggestions.length > 1 && !addressLoading && (
+          {showAddressSearch && (
+            <ul className="mt-2 space-y-1 rounded-xl border border-border bg-white p-2">
+              {addressSearchLoading && addressSearchResults.length === 0 ? (
+                <li className="px-3 py-2 text-sm text-muted">Searching…</li>
+              ) : (
+                addressSearchResults.map((result) => (
+                  <li key={result.id}>
+                    <button
+                      type="button"
+                      onClick={() => applySearchResult(result)}
+                      className="flex w-full items-start gap-2 rounded-lg px-3 py-2 text-left text-sm transition hover:bg-brand-light/40"
+                    >
+                      <Search className="mt-0.5 h-4 w-4 shrink-0 text-muted" />
+                      <span>{result.label}</span>
+                    </button>
+                  </li>
+                ))
+              )}
+            </ul>
+          )}
+          {!showAddressSearch && addressSuggestions.length > 1 && !addressLoading && !isAddressSearchActive && (
             <ul className="mt-2 space-y-1 rounded-xl border border-border bg-white p-2">
               {addressSuggestions.map((suggestion) => (
                 <li key={suggestion.id}>
