@@ -154,7 +154,13 @@ export default function AddViewpointPage() {
       })
       navigate(`/viewpoint/${vp.id}`)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to create viewpoint')
+      const message =
+        err instanceof Error
+          ? err.message
+          : typeof err === 'object' && err !== null && 'message' in err
+            ? String((err as { message: unknown }).message)
+            : 'Failed to create viewpoint'
+      setError(message)
     }
   }
 

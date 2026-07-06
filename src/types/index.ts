@@ -13,9 +13,6 @@ export interface Viewpoint {
   address: string
   latitude: number
   longitude: number
-  best_time: string | null
-  difficulty: string | null
-  estimated_visit: string | null
   image_url: string | null
   created_at: string
   updated_at: string
@@ -53,9 +50,6 @@ export interface CreateViewpointInput {
   address: string
   latitude: number
   longitude: number
-  best_time?: string
-  difficulty?: string
-  estimated_visit?: string
   image_url?: string | null
   tags?: string[]
   initial_rating?: number
@@ -69,9 +63,6 @@ export interface ViewpointRow {
   address: string
   latitude: number
   longitude: number
-  best_time: string | null
-  difficulty: string | null
-  estimated_visit: string | null
   image_url: string | null
   created_at: string
   updated_at: string

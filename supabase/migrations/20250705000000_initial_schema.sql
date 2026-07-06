@@ -36,9 +36,6 @@ create table public.viewpoints (
   location extensions.geography(point, 4326) generated always as (
     extensions.st_setsrid(extensions.st_makepoint(longitude, latitude), 4326)::extensions.geography
   ) stored,
-  best_time text,
-  difficulty text,
-  estimated_visit text,
   image_url text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()

@@ -11,9 +11,6 @@ function mapViewpoint(row: ViewpointWithStats): Viewpoint {
     address: row.address,
     latitude: row.latitude,
     longitude: row.longitude,
-    best_time: row.best_time,
-    difficulty: row.difficulty,
-    estimated_visit: row.estimated_visit,
     image_url: row.image_url,
     created_at: row.created_at,
     updated_at: row.updated_at,
@@ -124,9 +121,6 @@ export async function createViewpoint(
       address: input.address,
       latitude: input.latitude,
       longitude: input.longitude,
-      best_time: input.best_time ?? null,
-      difficulty: input.difficulty ?? null,
-      estimated_visit: input.estimated_visit ?? null,
       image_url: input.image_url ?? null,
     })
     .select('*')
