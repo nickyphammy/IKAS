@@ -8,7 +8,6 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { StarRatingInput } from '@/components/ui/rating'
 import { useCreateViewpoint } from '@/hooks/use-viewpoints'
-import { BEST_TIME_OPTIONS, DIFFICULTY_OPTIONS } from '@/lib/constants'
 import { compressImageForUpload, formatFileSize } from '@/lib/compress-image'
 import { cn } from '@/lib/utils'
 
@@ -21,9 +20,6 @@ export default function AddViewpointPage() {
   const [latitude, setLatitude] = useState<number | null>(null)
   const [longitude, setLongitude] = useState<number | null>(null)
   const [description, setDescription] = useState('')
-  const [bestTime, setBestTime] = useState('')
-  const [difficulty, setDifficulty] = useState('')
-  const [estimatedVisit, setEstimatedVisit] = useState('')
   const [tags, setTags] = useState('')
   const [rating, setRating] = useState(4)
   const [imageFile, setImageFile] = useState<File | null>(null)
@@ -80,9 +76,6 @@ export default function AddViewpointPage() {
         latitude,
         longitude,
         description,
-        best_time: bestTime || undefined,
-        difficulty: difficulty || undefined,
-        estimated_visit: estimatedVisit || undefined,
         tags: tags
           .split(',')
           .map((t) => t.trim())
@@ -109,79 +102,6 @@ export default function AddViewpointPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label className="mb-1.5 block text-sm font-medium">Location on map *</label>
-          <LocationPickerMap
-            latitude={latitude}
-            longitude={longitude}
-            onLocationChange={handleLocationChange}
-          />
-        </div>
-
-        <div>
-          <label className="mb-1.5 block text-sm font-medium">Name *</label>
-          <Input value={name} onChange={(e) => setName(e.target.value)} required placeholder="Sunset Ridge Lookout" />
-        </div>
-
-        <div>
-          <label className="mb-1.5 block text-sm font-medium">Address *</label>
-          <Input value={address} onChange={(e) => setAddress(e.target.value)} required placeholder="123 Trail Rd, City, State" />
-        </div>
-
-        <div>
-          <label className="mb-1.5 block text-sm font-medium">Description *</label>
-          <Textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-            placeholder="What makes this spot special?"
-          />
-        </div>
-
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <label className="mb-1.5 block text-sm font-medium">Best time</label>
-            <select
-              value={bestTime}
-              onChange={(e) => setBestTime(e.target.value)}
-              className="flex h-11 w-full rounded-xl border border-border bg-white px-4 text-sm"
-            >
-              <option value="">Select…</option>
-              {BEST_TIME_OPTIONS.map((opt) => (
-                <option key={opt} value={opt}>{opt}</option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label className="mb-1.5 block text-sm font-medium">Difficulty</label>
-            <select
-              value={difficulty}
-              onChange={(e) => setDifficulty(e.target.value)}
-              className="flex h-11 w-full rounded-xl border border-border bg-white px-4 text-sm"
-            >
-              <option value="">Select…</option>
-              {DIFFICULTY_OPTIONS.map((opt) => (
-                <option key={opt} value={opt}>{opt}</option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        <div>
-          <label className="mb-1.5 block text-sm font-medium">Estimated visit</label>
-          <Input value={estimatedVisit} onChange={(e) => setEstimatedVisit(e.target.value)} placeholder="30–45 minutes" />
-        </div>
-
-        <div>
-          <label className="mb-1.5 block text-sm font-medium">Tags</label>
-          <Input value={tags} onChange={(e) => setTags(e.target.value)} placeholder="Ocean View, Photography (comma separated)" />
-        </div>
-
-        <div>
-          <label className="mb-1.5 block text-sm font-medium">Your rating</label>
-          <StarRatingInput value={rating} onChange={setRating} />
-        </div>
-
         <div>
           <label className="mb-1.5 block text-sm font-medium">Photo</label>
           <label
@@ -216,6 +136,59 @@ export default function AddViewpointPage() {
           <p className="mt-1.5 text-xs text-muted">
             Images are resized to 1600px max and compressed as JPEG to save storage.
           </p>
+        </div>
+
+        <div>
+          <label className="mb-1.5 block text-sm font-medium">Location on map *</label>
+          <LocationPickerMap
+            latitude={latitude}
+            longitude={longitude}
+            onLocationChange={handleLocationChange}
+          />
+        </div>
+
+        <div>
+          <label className="mb-1.5 block text-sm font-medium">Name *</label>
+          <Input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            placeholder="Sunset Ridge Lookout"
+          />
+        </div>
+
+        <div>
+          <label className="mb-1.5 block text-sm font-medium">Address *</label>
+          <Input
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            required
+            placeholder="123 Trail Rd, City, State"
+          />
+        </div>
+
+        <div>
+          <label className="mb-1.5 block text-sm font-medium">Description *</label>
+          <Textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+            placeholder="What makes this spot special?"
+          />
+        </div>
+
+        <div>
+          <label className="mb-1.5 block text-sm font-medium">Tags</label>
+          <Input
+            value={tags}
+            onChange={(e) => setTags(e.target.value)}
+            placeholder="Ocean View, Photography (comma separated)"
+          />
+        </div>
+
+        <div>
+          <label className="mb-1.5 block text-sm font-medium">Your rating</label>
+          <StarRatingInput value={rating} onChange={setRating} />
         </div>
 
         {error && (
