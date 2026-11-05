@@ -20,6 +20,13 @@ function mapViewpoint(row: ViewpointWithStats): Viewpoint {
   }
 }
 
+// PostgREST `or` filters split on commas and parentheses, so the search term is
+// double-quoted (with `\` and `"` escaped) to keep input like "Big Sur, CA" intact.
+function searchFilter(term: string): string {
+  const pattern = `"%${term.replace(/[\\"]/g, '\\$&')}%"`
+  return ['name', 'address', 'description'].map((column) => `${column}.ilike.${pattern}`).join(',')
+}
+
 export async function getViewpoints(filters?: {
   search?: string
   centerLat?: number
@@ -30,28 +37,23 @@ export async function getViewpoints(filters?: {
   if (!isSupabaseConfigured()) return []
 
   const supabase = getSupabase()!
-  let query = supabase.from('viewpoints_with_stats').select('*')
+  const term = filters?.search?.trim()
 
-  if (filters?.search) {
-    const term = filters.search.trim()
-    query = query.or(
-      `name.ilike.%${term}%,address.ilike.%${term}%,description.ilike.%${term}%`,
-    )
-  }
-
-  if (
-    filters?.centerLat != null &&
-    filters?.centerLng != null &&
-    filters?.radiusMiles != null
-  ) {
-    const { data, error } = await supabase.rpc('viewpoints_within_radius', {
+  if (filters?.centerLat != null && filters?.centerLng != null && filters?.radiusMiles != null) {
+    let radiusQuery = supabase.rpc('viewpoints_within_radius', {
       center_lat: filters.centerLat,
       center_lng: filters.centerLng,
       radius_miles: filters.radiusMiles,
     })
+    if (term) radiusQuery = radiusQuery.or(searchFilter(term))
+
+    const { data, error } = await radiusQuery
     if (error) throw error
     return (data as ViewpointWithStats[]).map(mapViewpoint)
   }
+
+  let query = supabase.from('viewpoints_with_stats').select('*')
+  if (term) query = query.or(searchFilter(term))
 
   query = query.order('created_at', { ascending: false })
   if (filters?.limit) query = query.limit(filters.limit)
@@ -128,12 +130,18 @@ export async function createViewpoint(
 
   if (error) throw error
 
-  if (input.tags?.length) {
-    await setViewpointTags(data.id, input.tags)
-  }
+  try {
+    if (input.tags?.length) {
+      await setViewpointTags(data.id, input.tags)
+    }
 
-  if (input.initial_rating) {
-    await upsertRating(data.id, userId, input.initial_rating)
+    if (input.initial_rating) {
+      await upsertRating(data.id, userId, input.initial_rating)
+    }
+  } catch (err) {
+    // Remove the half-created viewpoint so resubmitting the form doesn't duplicate it.
+    await supabase.from('viewpoints').delete().eq('id', data.id)
+    throw err
   }
 
   const viewpoint = await getViewpointById(data.id)
@@ -143,22 +151,27 @@ export async function createViewpoint(
 
 async function setViewpointTags(viewpointId: string, tagNames: string[]) {
   const supabase = getSupabase()!
-  for (const name of tagNames) {
-    const trimmed = name.trim()
-    if (!trimmed) continue
+  const names = [...new Set(tagNames.map((name) => name.trim()).filter(Boolean))]
+  if (!names.length) return
 
-    const { data: tag } = await supabase
-      .from('tags')
-      .upsert({ name: trimmed }, { onConflict: 'name' })
-      .select('id')
-      .single()
+  // `tags` has no UPDATE policy, so a merge-upsert fails on tags that already
+  // exist. Insert only the new names (ON CONFLICT DO NOTHING), then look up all ids.
+  const { error: insertError } = await supabase.from('tags').upsert(
+    names.map((name) => ({ name })),
+    { onConflict: 'name', ignoreDuplicates: true },
+  )
+  if (insertError) throw insertError
 
-    if (tag) {
-      await supabase
-        .from('viewpoint_tags')
-        .upsert({ viewpoint_id: viewpointId, tag_id: tag.id })
-    }
-  }
+  const { data: tags, error: selectError } = await supabase
+    .from('tags')
+    .select('id')
+    .in('name', names)
+  if (selectError) throw selectError
+
+  const { error: linkError } = await supabase
+    .from('viewpoint_tags')
+    .insert(tags.map((tag) => ({ viewpoint_id: viewpointId, tag_id: tag.id })))
+  if (linkError) throw linkError
 }
 
 export async function uploadViewpointImage(file: File, userId: string): Promise<string> {
@@ -186,17 +199,16 @@ export async function upsertRating(
   const supabase = getSupabase()
   if (!supabase) throw new Error('Supabase is not configured')
 
-  const { error } = await supabase.from('viewpoint_ratings').upsert(
-    { viewpoint_id: viewpointId, user_id: userId, rating },
-    { onConflict: 'viewpoint_id,user_id' },
-  )
+  const { error } = await supabase
+    .from('viewpoint_ratings')
+    .upsert(
+      { viewpoint_id: viewpointId, user_id: userId, rating },
+      { onConflict: 'viewpoint_id,user_id' },
+    )
   if (error) throw error
 }
 
-export async function getUserRating(
-  viewpointId: string,
-  userId: string,
-): Promise<number | null> {
+export async function getUserRating(viewpointId: string, userId: string): Promise<number | null> {
   if (!isSupabaseConfigured()) return null
 
   const supabase = getSupabase()!
@@ -225,10 +237,7 @@ export async function getSavedViewpoints(userId: string): Promise<Viewpoint[]> {
   if (!savedRows?.length) return []
 
   const ids = savedRows.map((row) => row.viewpoint_id)
-  const { data, error } = await supabase
-    .from('viewpoints_with_stats')
-    .select('*')
-    .in('id', ids)
+  const { data, error } = await supabase.from('viewpoints_with_stats').select('*').in('id', ids)
 
   if (error) throw error
 
@@ -236,10 +245,7 @@ export async function getSavedViewpoints(userId: string): Promise<Viewpoint[]> {
   return ids.map((id) => byId.get(id)).filter((v): v is Viewpoint => v != null)
 }
 
-export async function toggleSavedViewpoint(
-  userId: string,
-  viewpointId: string,
-): Promise<boolean> {
+export async function toggleSavedViewpoint(userId: string, viewpointId: string): Promise<boolean> {
   const supabase = getSupabase()
   if (!supabase) throw new Error('Supabase is not configured')
 
@@ -267,10 +273,7 @@ export async function toggleSavedViewpoint(
   return true
 }
 
-export async function isViewpointSaved(
-  userId: string,
-  viewpointId: string,
-): Promise<boolean> {
+export async function isViewpointSaved(userId: string, viewpointId: string): Promise<boolean> {
   if (!isSupabaseConfigured()) return false
 
   const supabase = getSupabase()!
