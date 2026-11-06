@@ -7,7 +7,7 @@ import { ExploreRadiusProvider, useExploreRadius } from '@/components/explore/ex
 import { MapFlyToHandler } from '@/components/map/MapFlyToHandler'
 import { MapTileLayer } from '@/components/map/MapTileLayer'
 import { UserLocationLayer } from '@/components/map/UserLocationLayer'
-import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from '@/lib/constants'
+import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM, MAP_MAX_ZOOM } from '@/lib/constants'
 import { useGeolocation, useViewpoints } from '@/hooks/use-viewpoints'
 import { Button } from '@/components/ui/button'
 
@@ -46,6 +46,7 @@ function ExploreMapContent() {
       <MapContainer
         center={[DEFAULT_MAP_CENTER.lat, DEFAULT_MAP_CENTER.lng]}
         zoom={DEFAULT_MAP_ZOOM}
+        maxZoom={MAP_MAX_ZOOM}
         className="h-full w-full"
         scrollWheelZoom
       >

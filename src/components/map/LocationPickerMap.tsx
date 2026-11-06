@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { MapContainer, Marker, useMap, useMapEvents } from 'react-leaflet'
 import { MapTileLayer } from '@/components/map/MapTileLayer'
 import { UserLocationLayer } from '@/components/map/UserLocationLayer'
-import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM } from '@/lib/constants'
+import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM, MAP_MAX_ZOOM } from '@/lib/constants'
 import { pickerMarkerIcon } from '@/lib/map'
 
 interface FlyToTarget {
@@ -28,7 +28,11 @@ function FlyToPin({ flyTo }: { flyTo: FlyToTarget }) {
   return null
 }
 
-function MapClickHandler({ onLocationChange }: { onLocationChange: (lat: number, lng: number) => void }) {
+function MapClickHandler({
+  onLocationChange,
+}: {
+  onLocationChange: (lat: number, lng: number) => void
+}) {
   useMapEvents({
     click(e) {
       onLocationChange(e.latlng.lat, e.latlng.lng)
@@ -87,6 +91,7 @@ export function LocationPickerMap({
               hasPin ? [latitude, longitude] : [DEFAULT_MAP_CENTER.lat, DEFAULT_MAP_CENTER.lng]
             }
             zoom={hasPin ? 14 : DEFAULT_MAP_ZOOM}
+            maxZoom={MAP_MAX_ZOOM}
             className="h-full w-full"
             scrollWheelZoom
           >
