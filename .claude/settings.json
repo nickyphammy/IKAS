@@ -10,14 +10,6 @@
       "Read(./**/credentials*)",
       "Bash(sudo:*)"
     ],
-    "ask": [
-      "Bash(git push:*)",
-      "Bash(rm:*)"
-    ],
-    "allow": [
-      "Bash(git status)",
-      "Bash(git diff:*)",
-      "Bash(git log:*)"
-    ]
+    "allow": ["Bash(git status)", "Bash(git diff:*)", "Bash(git log:*)"]
   }
 }

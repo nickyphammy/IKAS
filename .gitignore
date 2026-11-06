@@ -49,3 +49,5 @@ coverage/
 
 # NOTE: supabase/migrations/ and supabase/config.toml are intentionally tracked.
 # Migrations are schema definitions (no secrets) and must be version-controlled.
+.vercel
+.env*
