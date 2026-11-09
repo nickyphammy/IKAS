@@ -1,0 +1,60 @@
+# CI: automated checks that run on GitHub's servers for every pull request.
+# CD (deployment) is handled by Vercel's GitHub integration, not this file:
+#   - every PR branch gets a Vercel preview deployment
+#   - every merge to main deploys to production (ikas-lovat.vercel.app)
+# This workflow is the gate in front of that: a PR should only be merged when it is green.
+
+name: CI
+
+# Triggers: run on every PR targeting main, and again on main after a merge
+# (so main's own history always shows a pass/fail badge).
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# If you push another commit to the same PR while a run is in progress,
+# cancel the old run: only the newest commit's result matters.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+# Least privilege: this workflow only needs to read the repo.
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    # This name is what shows up on the PR and what branch protection requires.
+    name: Lint and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      # 1. Download the PR's code onto the runner (a fresh Linux VM).
+      - name: Check out code
+        uses: actions/checkout@v5
+
+      # 2. Install Node and cache ~/.npm keyed on package-lock.json,
+      #    so later runs skip most of the download.
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+
+      # 3. Clean install exactly what package-lock.json pins. Unlike `npm install`,
+      #    `npm ci` fails if package.json and the lock file disagree.
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Lint (oxlint): catches likely bugs and bad patterns without running the app.
+      - name: Lint
+        run: npm run lint
+
+      # 5. Type-check (tsc -b) and bundle (vite build). If this fails here,
+      #    it would also fail on Vercel, so we find out before merging.
+      #    No Supabase env vars are needed: the app builds and runs unconfigured.
+      - name: Type-check and build
+        run: npm run build
