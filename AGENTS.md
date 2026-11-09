@@ -21,7 +21,7 @@
 ## Git conventions
 
 - Branch naming: `feat/<slug>` or `fix/<slug>` (matching the `feat:` / `fix:` commit prefixes)
-- All changes reach `main` through a GitHub pull request: push the branch, open it with `gh pr create`, and merge with `gh pr merge --merge`. Never commit or push directly to `main`. A merge commit (not squash or rebase) keeps the deployed `main` HEAD authored by the repo owner, which Vercel Hobby requires.
+- All changes reach `main` through a GitHub pull request: push the branch, open it with `gh pr create`, and merge with `gh pr merge --merge`. Never commit or push directly to `main`. Prefer a merge commit (not squash or rebase) so the deployed `main` HEAD is authored by the repo owner, a safeguard against Vercel Hobby blocking commits with non-member co-authors.
 - Commit messages: imperative summary line; body explains *why*, not *what*.
 - One logical change per commit; docs affected by a change land in the same
   commit as the change.
