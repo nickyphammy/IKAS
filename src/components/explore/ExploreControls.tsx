@@ -9,16 +9,19 @@ import { cn } from '@/lib/utils'
 interface ExploreControlsProps {
   search: string
   onSearchChange: (value: string) => void
+  /** The search term when it matched no viewpoints, otherwise null. */
+  noMatches: string | null
 }
 
-export function ExploreControls({ search, onSearchChange }: ExploreControlsProps) {
+export function ExploreControls({ search, onSearchChange, noMatches }: ExploreControlsProps) {
   const { radiusMode, setRadiusMode, radiusMiles, setRadiusMiles, center } = useExploreRadius()
 
   return (
     <div className="pointer-events-none absolute inset-x-0 top-0 z-[1000] p-4">
       <div className="pointer-events-auto mx-auto max-w-xl space-y-3">
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
+          {/* z-10: the input's backdrop blur paints it above an unlayered icon */}
+          <Search className="pointer-events-none absolute left-3 top-1/2 z-10 h-4 w-4 -translate-y-1/2 text-muted" />
           <Input
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
@@ -57,6 +60,15 @@ export function ExploreControls({ search, onSearchChange }: ExploreControlsProps
             <Link to="/daily-recs">View recs</Link>
           </Button>
         </div>
+        {noMatches && (
+          <p
+            role="status"
+            className="rounded-xl bg-white/90 px-3 py-2 text-center text-xs text-muted shadow"
+          >
+            No viewpoints match “{noMatches}”
+            {radiusMode && center ? ` within ${radiusMiles} mi` : ''}
+          </p>
+        )}
         {radiusMode && (
           <p className="rounded-xl bg-white/90 px-3 py-2 text-center text-xs text-muted shadow">
             {center

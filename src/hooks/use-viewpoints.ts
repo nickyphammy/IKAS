@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { keepPreviousData, useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import {
   createViewpoint,
   getDailyRecs,
@@ -31,6 +31,8 @@ export function useViewpoints(filters?: {
   return useQuery({
     queryKey: ['viewpoints', filters],
     queryFn: () => getViewpoints(filters),
+    // Keep the current markers on the map while a new search or radius loads.
+    placeholderData: keepPreviousData,
   })
 }
 
