@@ -61,6 +61,19 @@ Or paste the SQL from `supabase/migrations/` into the Supabase SQL editor.
 npm run build
 ```
 
+## Curated viewpoints
+
+`npm run curator -- <command>` (`scripts/viewpoint-curator.mjs`) seeds the app with public scenic spots.
+Places come from Wikidata (CC0); photos come only from Wikimedia Commons and are accepted only if their
+license is public domain / CC0, CC BY or CC BY-SA. NC, ND, GFDL-only and non-free files, files with any
+Commons restriction tag (personality rights, trademarks, …) and CC BY/BY-SA photos without an identified
+author are rejected. The author, license and source are stored on the viewpoint and shown as a photo credit
+in the app.
+
+Candidates are staged in `.curator/` (git-ignored) and nothing reaches Supabase until it is approved:
+`discover` → `photos` → `stage` → `list` → `approve` → `publish`. Run the script with no command for the full
+reference. `setup` and `publish` need `SUPABASE_SERVICE_ROLE_KEY` in `.env`.
+
 ## Deploy to Vercel
 
 1. Push this repo to GitHub

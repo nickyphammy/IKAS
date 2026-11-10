@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "healthcheck": "node scripts/supabase-health-check.mjs",
     "clear-db": "node scripts/clear-supabase-data.mjs",
+    "curator": "node scripts/viewpoint-curator.mjs",
     "lint": "oxlint",
     "preview": "vite preview"
   },
