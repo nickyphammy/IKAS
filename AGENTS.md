@@ -21,13 +21,14 @@
 ## Git conventions
 
 - Branch naming: `feat/<slug>` or `fix/<slug>` (matching the `feat:` / `fix:` commit prefixes)
+- All changes reach `main` through a GitHub pull request: push the branch, open it with `gh pr create`, and merge with `gh pr merge --merge`. Never commit or push directly to `main`. Prefer a merge commit (not squash or rebase) so the deployed `main` HEAD is authored by the repo owner, a safeguard against Vercel Hobby blocking commits with non-member co-authors.
 - Commit messages: imperative summary line; body explains *why*, not *what*.
 - One logical change per commit; docs affected by a change land in the same
   commit as the change.
 
 ## Review bar
 
-- Solo project: `npm run build` and `npm run lint` must pass before pushing to `main` (Vercel deploys from `main`).
+- Solo project: `npm run build` and `npm run lint` must pass before opening a PR. Check the PR's Vercel preview deployment before merging (Vercel deploys `main` to production).
 - Self-review the diff before declaring work ready; run the project's test and
   lint commands (see `CLAUDE.md` → Project facts) rather than asserting them.
 - **UI changes include screenshots at the target viewports.** A description of
