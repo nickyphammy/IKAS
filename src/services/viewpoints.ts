@@ -1,6 +1,16 @@
 import { getSupabase, isSupabaseConfigured } from '@/lib/supabase'
 import { compressImageForUpload } from '@/lib/compress-image'
-import type { Viewpoint, ViewpointWithStats } from '@/types'
+import type { PhotoCredit, Viewpoint, ViewpointWithStats } from '@/types'
+
+function mapPhotoCredit(row: ViewpointWithStats): PhotoCredit | null {
+  if (!row.image_author || !row.image_license) return null
+  return {
+    author: row.image_author,
+    license: row.image_license,
+    license_url: row.image_license_url ?? null,
+    source_url: row.image_source_url ?? null,
+  }
+}
 
 function mapViewpoint(row: ViewpointWithStats): Viewpoint {
   return {
@@ -12,6 +22,7 @@ function mapViewpoint(row: ViewpointWithStats): Viewpoint {
     latitude: row.latitude,
     longitude: row.longitude,
     image_url: row.image_url,
+    photo_credit: mapPhotoCredit(row),
     created_at: row.created_at,
     updated_at: row.updated_at,
     avg_rating: row.avg_rating,

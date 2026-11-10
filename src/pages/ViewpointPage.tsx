@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom'
 import { Bookmark, Flag, MapPin } from 'lucide-react'
 import { PageContainer } from '@/components/layout/PageShell'
 import { Button } from '@/components/ui/button'
+import { PhotoCredit } from '@/components/ui/photo-credit'
 import { Skeleton } from '@/components/ui/skeleton'
 import { StarRatingDisplay, StarRatingInput } from '@/components/ui/rating'
 import {
@@ -59,6 +60,9 @@ export default function ViewpointPage() {
           </div>
         )}
       </div>
+      {viewpoint.image_url && viewpoint.photo_credit && (
+        <PhotoCredit credit={viewpoint.photo_credit} className="mt-2" />
+      )}
 
       <div className="mt-8">
         <div className="flex flex-wrap items-start justify-between gap-4">

@@ -4,6 +4,7 @@ import { ChevronRight } from 'lucide-react'
 import { PageContainer } from '@/components/layout/PageShell'
 import { Button } from '@/components/ui/button'
 import { EmptyState } from '@/components/ui/empty-state'
+import { PhotoCreditOverlay } from '@/components/ui/photo-credit'
 import { RatingBadge } from '@/components/ui/rating'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useDailyRecs } from '@/hooks/use-viewpoints'
@@ -78,6 +79,9 @@ export default function DailyRecsPage() {
               <div className="flex h-full items-center justify-center bg-gradient-to-br from-brand-light to-orange-50 text-brand">
                 No photo
               </div>
+            )}
+            {current!.image_url && current!.photo_credit && (
+              <PhotoCreditOverlay credit={current!.photo_credit} />
             )}
             {current!.avg_rating != null && (
               <div className="absolute right-3 top-3">

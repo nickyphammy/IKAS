@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { Viewpoint } from '@/types'
+import { PhotoCreditOverlay } from '@/components/ui/photo-credit'
 import { RatingBadge } from '@/components/ui/rating'
 import { cn } from '@/lib/utils'
 import { formatDistance, haversineDistanceMiles } from '@/lib/geo'
@@ -41,6 +42,9 @@ export function ViewpointCard({ viewpoint, userLat, userLng, className }: Viewpo
           <div className="flex h-full items-center justify-center bg-gradient-to-br from-brand-light to-orange-50">
             <MapPin className="h-12 w-12 text-brand/40" />
           </div>
+        )}
+        {viewpoint.image_url && viewpoint.photo_credit && (
+          <PhotoCreditOverlay credit={viewpoint.photo_credit} />
         )}
         {viewpoint.avg_rating != null && (
           <div className="absolute right-3 top-3">
