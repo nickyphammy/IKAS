@@ -8,26 +8,37 @@ import { MapFlyToHandler } from '@/components/map/MapFlyToHandler'
 import { MapTileLayer } from '@/components/map/MapTileLayer'
 import { UserLocationLayer } from '@/components/map/UserLocationLayer'
 import { DEFAULT_MAP_CENTER, DEFAULT_MAP_ZOOM, MAP_MAX_ZOOM } from '@/lib/constants'
+import { useDebouncedValue } from '@/hooks/use-debounced-value'
 import { useGeolocation, useViewpoints } from '@/hooks/use-viewpoints'
 import { Button } from '@/components/ui/button'
 
 function ExploreMapContent() {
   const [search, setSearch] = useState('')
+  // Query once typing pauses rather than on every keystroke.
+  const debouncedSearch = useDebouncedValue(search.trim(), 350)
   const { center, radiusMiles, radiusMode } = useExploreRadius()
   const { data: userLocation, refetch: refetchLocation } = useGeolocation()
   const flyToRef = useRef<(lat: number, lng: number) => void>(() => {})
 
   const filters = useMemo(
     () => ({
-      search: search || undefined,
+      search: debouncedSearch || undefined,
       centerLat: radiusMode && center ? center.lat : undefined,
       centerLng: radiusMode && center ? center.lng : undefined,
       radiusMiles: radiusMode && center ? radiusMiles : undefined,
     }),
-    [search, center, radiusMiles, radiusMode],
+    [debouncedSearch, center, radiusMiles, radiusMode],
   )
 
-  const { data: viewpoints = [] } = useViewpoints(filters)
+  const { data: viewpoints = [], isFetching, isPlaceholderData, isError } = useViewpoints(filters)
+  // Only claim "no matches" for a settled, successful result of what is in the box right now.
+  const noMatches =
+    Boolean(debouncedSearch) &&
+    debouncedSearch === search.trim() &&
+    !isFetching &&
+    !isPlaceholderData &&
+    !isError &&
+    viewpoints.length === 0
 
   async function handleLocate() {
     if (userLocation) {
@@ -42,12 +53,17 @@ function ExploreMapContent() {
 
   return (
     <div className="relative h-[calc(100dvh-8rem)] md:h-[calc(100dvh-4rem)]">
-      <ExploreControls search={search} onSearchChange={setSearch} />
+      <ExploreControls
+        search={search}
+        onSearchChange={setSearch}
+        noMatches={noMatches ? debouncedSearch : null}
+      />
       <MapContainer
         center={[DEFAULT_MAP_CENTER.lat, DEFAULT_MAP_CENTER.lng]}
         zoom={DEFAULT_MAP_ZOOM}
         maxZoom={MAP_MAX_ZOOM}
-        className="h-full w-full"
+        // Below md the full-width search bar covers the zoom buttons; pinch-zoom covers it there.
+        className="h-full w-full max-md:[&_.leaflet-control-zoom]:hidden"
         scrollWheelZoom
       >
         <MapTileLayer />
