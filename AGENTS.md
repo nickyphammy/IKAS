@@ -31,6 +31,7 @@
 - Solo project: `npm run build` and `npm run lint` must pass before opening a PR. Check the PR's Vercel preview deployment before merging (Vercel deploys `main` to production).
 - Self-review the diff before declaring work ready; run the project's test and
   lint commands (see `CLAUDE.md` → Project facts) rather than asserting them.
+- CI (`.github/workflows/ci.yml`) runs lint, type-check and build on every PR; merge only when its "Lint and build" check is green.
 - **UI changes include screenshots at the target viewports.** A description of
   what it looks like is not evidence of what it looks like.
 - **Non-trivial work carries an independent pass**, a `verify` or `challenge`
